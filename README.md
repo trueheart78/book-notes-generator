@@ -1,4 +1,4 @@
-# Book Note Generator :boom:
+# Book Notes Generator :boom:
 
 Companion to [Book Notes](https://github.com/trueheart78/book-notes)
 
