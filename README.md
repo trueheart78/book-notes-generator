@@ -4,7 +4,9 @@ Companion to [Book Notes](https://github.com/trueheart78/book-notes)
 
 ## Todo
 
+- Fix broken tests that depended on `book-yaml/`
 - Add configuration support (input dir and output dir)
+- Allow status output of current config being good.
 - Update tests to work with config support
 - Wrap tests around untested code
 - Update this README with better instructions
