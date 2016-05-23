@@ -1,21 +1,20 @@
-# Book Club Notes :boom:
+# Book Note Generator :boom:
 
-Reading a lot, figured this was as good a place as any to make some notes :heart:
+Companion to [Book Notes](https://github.com/trueheart78/book-notes)
 
-Books :books:
+## Todo
 
-1. [CoffeeScript](notes/coffeescript/README.md)
-1. [Working with Unix Processes](notes/working-with-unix-processes/README.md) :heart:
-1. [Working with Ruby Threads](notes/working-with-ruby-threads/README.md) :heart:
-1. [Confident Ruby](notes/confident-ruby/README.md)
-1. [Practical Object-Oriented Design in Ruby](notes/practical-object-oriented-design-in-ruby/README.md) :heart:
-1. [Seven Databases in Seven Weeks](notes/seven-db-in-seven-weeks/README.md)
+- Add configuration support (input dir and output dir)
+- Update tests to work with config support
+- Wrap tests around untested code
+- Update this README with better instructions
 
 ## Adding a Book
 
 ### Creating YAML for a Book
 
-Books can be added by creating a `book-name.yml` file in the `yaml/` directory. 
+Books can be added by creating a `book-name.yml` file in the input directory
+defined in the config file.
 
 You can create the YAML file by running:
 
@@ -79,9 +78,9 @@ download the image (if it is valid), and inform you of this task:
 ```sh
 **********************************************************************
 
-Please add the following to the root README.md file:
+Please add the following to the root book-notes README.md file:
 
-1. [An Awesome Book](notes/an-awesome-book/README.md)
+1. [An Awesome Book](an-awesome-book/README.md)
 
 **********************************************************************
 
