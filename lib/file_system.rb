@@ -1,3 +1,5 @@
+require 'config'
+
 class FileSystem
   attr_reader :errors, :file
 
@@ -36,6 +38,6 @@ class FileSystem
   end
 
   def directory
-    'yaml'
+    Config.yaml_path
   end
 end

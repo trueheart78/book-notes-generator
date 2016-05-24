@@ -5,6 +5,10 @@ class YamlGeneratorTest < Minitest::Test
   include TestHelper
   include FileSystemTestMixin
 
+  def setup
+    init_temp_dir
+  end
+
   # failing
   def test_writes_file
     output = capture_output { subject.run }
@@ -25,6 +29,7 @@ class YamlGeneratorTest < Minitest::Test
 
   def teardown
     File.unlink(sample_file_path) if File.exist? sample_file_path
+    destroy_temp_dir
   end
 
   def subject
@@ -36,6 +41,6 @@ class YamlGeneratorTest < Minitest::Test
   end
 
   def sample_file_path
-    ['yaml', sample_filename].join '/'
+    [Config.yaml_path, sample_filename].join '/'
   end
 end

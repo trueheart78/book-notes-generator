@@ -2,10 +2,6 @@ require_relative 'test_helper'
 require 'config'
 
 class ConfigTest < Minitest::Test
-  def setup
-    ENV['CONFIG_PATH'] = 'test/fixtures/config.test'
-  end
-
   def test_base_path
     assert_equal('tmp', Config.base_path)
   end
