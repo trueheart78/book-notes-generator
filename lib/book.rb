@@ -22,7 +22,7 @@ class Book
 
 
   def directory
-    [config.yaml_path, title.downcase.gsub(/[^0-9a-z.\-]/, '-')].join '/'
+    [config.notes_path, title.downcase.gsub(/[^0-9a-z.\-]/, '-')].join '/'
   end
 
   def chapter_list

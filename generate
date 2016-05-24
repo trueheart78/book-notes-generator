@@ -8,7 +8,10 @@ require 'book'
 require 'notes_generator'
 
 config = Config.new
-exit unless config.valid?
+unless config.valid?
+  puts "Invalid config"
+  exit 1
+end
 
 options = Options.new
 options.parse!
