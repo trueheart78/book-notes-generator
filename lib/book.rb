@@ -9,7 +9,8 @@ class Book
 
   def overview
     [
-      "- Directory: #{directory}",
+      "- Directory: #{relative_directory}",
+      "- Path: #{directory}",
       "- Title: #{title}",
       "- Purchase: #{purchase}",
       "- Author: #{author}",
@@ -20,9 +21,12 @@ class Book
     ].concat(chapter_overview).join "\n"
   end
 
-
   def directory
-    [config.notes_path, title.downcase.gsub(/[^0-9a-z.\-]/, '-')].join '/'
+    [config.notes_path, title_as_directory].join '/'
+  end
+
+  def relative_directory
+    config.compose_notes_dir(title_as_directory)
   end
 
   def chapter_list
@@ -70,6 +74,10 @@ class Book
   end
 
   private
+
+  def title_as_directory
+    title.downcase.gsub(/[^0-9a-z.\-]/, '-')
+  end
 
   def chapter_overview
     chapter_list.map { |x| left_pad(x) }

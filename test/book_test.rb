@@ -5,30 +5,36 @@ class BookTest < Minitest::Test
   include TestHelper
 
   def subject
-    @subject ||= Book.new(book_path, test_config)
+    @subject ||= Book.new book_path, test_config
   end
 
   def test_image_file
-    assert(subject.image?)
-    assert_equal('cover.jpg', subject.image_file)
+    assert subject.image?
+    assert_equal 'cover.jpg', subject.image_file
   end
 
   def test_missing_image_file
-    subject_wo_image = Book.new(fixture_path('book-valid-no-image'), test_config)
-    refute(subject_wo_image.image?)
-    refute(subject_wo_image.image)
+    fixture_path = fixture_book_path 'book-valid-no-image'
+    subject_wo_image = Book.new fixture_path, test_config
+    refute subject_wo_image.image?
+    refute subject_wo_image.image
   end
 
   def test_directory
-    assert_equal("#{test_config.notes_path}/an-awesome-book", subject.directory)
+    assert_equal "#{test_config.notes_path}/an-awesome-book", subject.directory
+  end
+
+  def test_relative_directory
+    assert_equal 'notes/an-awesome-book', subject.relative_directory
   end
 
   def test_chapter_list
-    assert_equal(4, subject.chapter_list.size)
+    assert_equal 4, subject.chapter_list.size
   end
 
   def test_overview
-    assert_match(/- Directory: #{subject.directory}/, subject.overview)
+    assert_match(/- Directory: #{subject.relative_directory}/, subject.overview)
+    assert_match(/- Path: #{subject.directory}/, subject.overview)
     assert_match(/- Title: #{subject.title}/, subject.overview)
     assert_match(/- Purchase: #{subject.purchase}/, subject.overview)
     assert_match(/- Author: #{subject.author}/, subject.overview)

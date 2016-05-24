@@ -14,8 +14,8 @@ class ChapterTest < Minitest::Test
     assert_equal(mock_chapter.string, output)
   end
 
-  def test_file
-    assert_equal(mock_chapter.file, subject.file)
+  def test_file_name
+    assert_equal(mock_chapter.file_name, subject.file_name)
   end
 
   def test_readme_md
@@ -31,13 +31,13 @@ class ChapterTest < Minitest::Test
   def mock_chapter
     @mock_chapter ||= OpenStruct.new.tap do |c|
       c.name = 'The Chapter of Nine'
-      c.filename = 'the-chapter-of-nine'
+      c.name_as_file = 'the-chapter-of-nine'
       c.num = 8
       c.num_str = '09'
-      c.file = "ch#{c.num_str}-#{c.filename}.md"
+      c.file_name = "ch#{c.num_str}-#{c.name_as_file}.md"
       c.proper_name = "Chapter #{c.num_str.to_i}. #{c.name}"
-      c.readme = "[#{c.proper_name}](#{c.file})"
-      c.string = "#{c.num_str}. #{c.name} - #{c.file}"
+      c.readme = "[#{c.proper_name}](#{c.file_name})"
+      c.string = "#{c.num_str}. #{c.name} - #{c.file_name}"
     end
   end
 end
