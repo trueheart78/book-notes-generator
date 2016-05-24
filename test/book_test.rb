@@ -20,7 +20,7 @@ class BookTest < Minitest::Test
   end
 
   def test_directory
-    assert_equal("#{test_config.yaml_path}/an-awesome-book", subject.directory)
+    assert_equal("#{test_config.notes_path}/an-awesome-book", subject.directory)
   end
 
   def test_chapter_list
