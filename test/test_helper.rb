@@ -27,12 +27,20 @@ module TestHelper
     ['test','fixtures',"#{fixture}.yml"].join '/'
   end
 
+  def test_config_path
+    'test/fixtures/config.test'
+  end
+
+  def test_config
+    @test_config ||= Config.new config_path: test_config_path
+  end
+
   def init_temp_dir
-    FileUtils.mkdir_p Config.yaml_path
-    FileUtils.mkdir_p Config.notes_path
+    FileUtils.mkdir_p test_config.yaml_path
+    FileUtils.mkdir_p test_config.notes_path
   end
 
   def destroy_temp_dir
-    FileUtils.rm_rf Config.base_path
+    FileUtils.rm_rf test_config.base_path
   end
 end

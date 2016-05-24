@@ -7,6 +7,9 @@ require 'options'
 require 'book'
 require 'notes_generator'
 
+config = Config.new
+exit unless config.valid?
+
 options = Options.new
 options.parse!
 
@@ -14,8 +17,8 @@ exit unless options.continue?
 
 if options.generate?
   require 'import_controller'
-  ImportController.new(options.file).run
+  ImportController.new(options.file, config).run
 elsif options.create_new?
   require 'yaml_generator'
-  YamlGenerator.new(options.file).run
+  YamlGenerator.new(options.file, config).run
 end

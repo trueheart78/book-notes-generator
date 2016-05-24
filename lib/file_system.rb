@@ -3,9 +3,10 @@ require 'config'
 class FileSystem
   attr_reader :errors, :file
 
-  def initialize(file)
+  def initialize(file, config)
     @errors = []
     @file = file
+    @config = config
   end
 
   def validate
@@ -18,8 +19,8 @@ class FileSystem
     exit 1 if errors.any?
   end
 
-  def file_path
-    [directory, file].join '/'
+  def yaml_file_path
+    [config.yaml_path, file].join '/'
   end
 
   private
@@ -37,7 +38,7 @@ class FileSystem
   def validate_file
   end
 
-  def directory
-    Config.yaml_path
+  def config
+    @config
   end
 end

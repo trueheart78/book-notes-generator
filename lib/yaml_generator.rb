@@ -10,15 +10,15 @@ class YamlGenerator < FileSystem
   private
 
   def create
-    File.open(file_path,'w') do |file|
+    File.open(yaml_file_path,'w') do |file|
       file.puts content
     end
-    puts "File created: #{file_path}"
+    puts "File created: #{yaml_file_path}"
   end
 
   def validate_file
     @errors << { message: 'No file passed' } if file.empty?
-    @errors << { message: "File exists (#{file_path})" } if File.exist? file_path
+    @errors << { message: "File exists (#{yaml_file_path})" } if File.exist? yaml_file_path
   end
 
   def content
