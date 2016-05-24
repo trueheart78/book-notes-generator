@@ -4,14 +4,22 @@ Companion to [Book Notes](https://github.com/trueheart78/book-notes)
 
 ## Todo
 
-- Fix broken tests that depended on `book-yaml/`
-- Add configuration support (input dir and output dir)
-- Allow status output of current config being good.
-- Update tests to work with config support
 - Wrap tests around untested code
 - Update this README with better instructions
 
 ## Adding a Book
+
+### Config
+
+Make a local copy of the `config.default` file:
+
+```sh
+cp config.default config.local
+```
+
+Edit `config.development` with a full path for `book_notes_path`, the proper `yaml_directory`,
+and the `notes_directory`. Leaving either of the directories blank is allowed, and for the
+`notes_directory`, likely desired.
 
 ### Creating YAML for a Book
 
