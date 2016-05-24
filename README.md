@@ -17,7 +17,7 @@ Make a local copy of the `config.default` file:
 cp config.default config.local
 ```
 
-Edit `config.development` with a full path for `book_notes_path`, the proper `yaml_directory`,
+Edit `config.local` with a full path for `book_notes_path`, the proper `yaml_directory`,
 and the `notes_directory`. Leaving either of the directories blank is allowed, and for the
 `notes_directory`, likely desired.
 
