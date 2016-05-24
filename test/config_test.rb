@@ -44,7 +44,21 @@ class ConfigTest < Minitest::Test
     refute bad_config.valid?
   end
 
+  def test_compose_notes_dir
+    assert_equal 'notes/book-dir', subject.compose_notes_dir('book-dir')
+  end
+
+  def test_compose_notes_dir_when_nil
+    config_path = fixture_config_path empty_notes_config_file
+    empty_notes_config = Config.new config_path: config_path
+    assert_equal 'book-dir', empty_notes_config.compose_notes_dir('book-dir')
+  end
+
   def invalid_config_path
     'bad/config/path'
+  end
+
+  def empty_notes_config_file
+    'config-sans-notes-dir'
   end
 end

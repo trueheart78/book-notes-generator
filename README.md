@@ -14,7 +14,7 @@ Companion to [Book Notes](https://github.com/trueheart78/book-notes)
 Make a local copy of the `config.default` file:
 
 ```sh
-cp config.default config.development
+cp config.default config.local
 ```
 
 Edit `config.development` with a full path for `book_notes_path`, the proper `yaml_directory`,

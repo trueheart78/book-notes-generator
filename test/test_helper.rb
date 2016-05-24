@@ -20,15 +20,23 @@ module TestHelper
   alias :suppress_output :capture_output
 
   def book_path
-    fixture_path('book-valid')
+    fixture_book_path('book-valid')
   end
 
-  def fixture_path(fixture)
-    ['test','fixtures',"#{fixture}.yml"].join '/'
+  def fixture_path
+    ['test','fixtures'].join '/'
+  end
+
+  def fixture_book_path(file)
+    [fixture_path, "books", "#{file}.yml"].join '/'
+  end
+
+  def fixture_config_path(config)
+    [fixture_path, "config", "#{config}"].join '/'
   end
 
   def test_config_path
-    'test/fixtures/config.test'
+    fixture_config_path('config-default')
   end
 
   def test_config

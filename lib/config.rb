@@ -23,6 +23,14 @@ class Config
     @valid
   end
 
+  def compose_notes_dir(book_directory)
+    load_yaml
+    dir = []
+    dir << yaml_data['notes_directory'] if yaml_data['notes_directory']
+    dir << book_directory
+    dir.join '/'
+  end
+
   private
 
   def generate_path(config_name)
@@ -35,7 +43,12 @@ class Config
     return use_config_path if use_config_path
     return ENV['CONFIG_PATH'] if ENV['CONFIG_PATH']
     return 'config.default' unless ENV['NODE_ENV']
+    return 'config.local' if local_supported?
     "config.#{ENV['NODE_ENV'].downcase}"
+  end
+
+  def local_supported?
+    ENV['NODE_ENV'] == 'development' && File.exist?('config.local')
   end
 
   def load_yaml

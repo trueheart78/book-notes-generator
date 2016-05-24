@@ -22,7 +22,7 @@ class ImportController < FileSystem
   end
 
   def import
-    generator = NotesGenerator.new book
+    generator = NotesGenerator.new book, config
     generator.run
   end
 

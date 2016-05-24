@@ -1,8 +1,9 @@
 require 'fileutils'
 
 class NotesGenerator
-  def initialize(book)
+  def initialize(book, config)
     @book = book
+    @config = config
   end
 
   def run
@@ -25,7 +26,7 @@ class NotesGenerator
       '',
       'Please add the following to the root README.md file:',
       '',
-      "1. [#{book.title}](#{readme_path})",
+      "1. [#{book.title}](#{relative_readme_path})",
       '',
       spacer,
       '',
@@ -51,6 +52,10 @@ class NotesGenerator
     [book.directory, 'README.md'].join '/'
   end
 
+  def relative_readme_path
+    [book.directory, 'README.md'].join '/'
+  end
+
   def write_chapters
     book.chapter_list.each do |chapter|
       File.open([book.directory, chapter.file].join('/'), 'wb') do |file|
@@ -69,5 +74,9 @@ class NotesGenerator
 
   def book
     @book
+  end
+
+  def config
+    @config
   end
 end

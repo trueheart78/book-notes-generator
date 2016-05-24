@@ -8,15 +8,15 @@ class Chapter
   end
 
   def to_s
-    "#{num_str}. #{name} - #{file}"
+    "#{num_str}. #{name} - #{file_name}"
   end
 
-  def file
-    "ch#{num_str}-#{filename}.md"
+  def file_name
+    "ch#{num_str}-#{name_as_file}.md"
   end
 
   def readme_md
-    "[#{proper_name}](#{file})"
+    "[#{proper_name}](#{file_name})"
   end
 
   def to_md
@@ -40,7 +40,7 @@ class Chapter
     num.to_s
   end
 
-  def filename
+  def name_as_file
     name.gsub(/[?',":]/,'').
       gsub(/\-/,' ').
       gsub(/\s\s\s/,' ').
