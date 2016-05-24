@@ -9,7 +9,6 @@ class YamlGeneratorTest < Minitest::Test
     init_temp_dir
   end
 
-  # failing
   def test_writes_file
     output = capture_output { subject.run }
 
@@ -17,7 +16,6 @@ class YamlGeneratorTest < Minitest::Test
     assert_match(/File created: #{subject.yaml_file_path}/, output)
   end
 
-  # failing
   def test_error_on_existing_file
     suppress_output { subject.run }
 
