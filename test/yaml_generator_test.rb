@@ -28,7 +28,6 @@ class YamlGeneratorTest < Minitest::Test
   end
 
   def teardown
-    File.unlink(sample_file_path) if File.exist? sample_file_path
     destroy_temp_dir
   end
 
