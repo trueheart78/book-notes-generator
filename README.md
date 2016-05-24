@@ -17,14 +17,14 @@ Make a local copy of the `config.default` file:
 cp config.default config.local
 ```
 
-Edit `config.local` with a full path for `book_notes_path`, the proper `yaml_directory`,
-and the `notes_directory`. Leaving either of the directories blank is allowed, and for the
-`notes_directory`, likely desired.
+Edit `config.local` with a full path for `book_notes_path`, the proper
+`yaml_directory`, and the `notes_directory`. Leaving either of the directories
+blank is allowed, and for the `notes_directory`, likely desired.
 
 ### Creating YAML for a Book
 
-Books can be added by creating a `book-name.yml` file in the input directory
-defined in the config file.
+Books can be added by creating a `book-name.yml` file in the `yaml_directory`
+location defined in the config file.
 
 You can create the YAML file by running:
 
