@@ -1,5 +1,6 @@
 $LOAD_PATH.unshift(File.join(File.dirname(__FILE__), '..', 'lib'))
 $LOAD_PATH.unshift(File.dirname(__FILE__))
+ENV['NODE_ENV'] = 'test'
 
 require 'minitest/autorun'
 require 'file_system_test_mixin'
