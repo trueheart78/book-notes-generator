@@ -53,12 +53,12 @@ class NotesGenerator
   end
 
   def relative_readme_path
-    [book.directory, 'README.md'].join '/'
+    [book.relative_directory, 'README.md'].join '/'
   end
 
   def write_chapters
     book.chapter_list.each do |chapter|
-      File.open([book.directory, chapter.file].join('/'), 'wb') do |file|
+      File.open([book.directory, chapter.file_name].join('/'), 'wb') do |file|
         file.write chapter.to_md
       end
     end
