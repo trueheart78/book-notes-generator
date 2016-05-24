@@ -1,0 +1,3 @@
+book_notes_path: tmp
+yaml_directory: _yaml_
+notes_directory: notes
