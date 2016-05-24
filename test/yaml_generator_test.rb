@@ -5,6 +5,7 @@ class YamlGeneratorTest < Minitest::Test
   include TestHelper
   include FileSystemTestMixin
 
+  # failing
   def test_writes_file
     output = capture_output { subject.run }
 
@@ -12,6 +13,7 @@ class YamlGeneratorTest < Minitest::Test
     assert_match(/File created: #{subject.file_path}/, output)
   end
 
+  # failing
   def test_error_on_existing_file
     suppress_output { subject.run }
 
