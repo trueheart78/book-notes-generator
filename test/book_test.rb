@@ -5,7 +5,7 @@ class BookTest < Minitest::Test
   include TestHelper
 
   def subject
-    @subject ||= Book.new(book_path)
+    @subject ||= Book.new(book_path, test_config)
   end
 
   def test_image_file
@@ -14,13 +14,13 @@ class BookTest < Minitest::Test
   end
 
   def test_missing_image_file
-    subject_wo_image = Book.new(fixture_path('book-valid-no-image'))
+    subject_wo_image = Book.new(fixture_path('book-valid-no-image'), test_config)
     refute(subject_wo_image.image?)
     refute(subject_wo_image.image)
   end
 
   def test_directory
-    assert_equal('notes/an-awesome-book', subject.directory)
+    assert_equal("#{test_config.yaml_path}/an-awesome-book", subject.directory)
   end
 
   def test_chapter_list

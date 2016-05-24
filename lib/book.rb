@@ -2,8 +2,9 @@ require 'yaml'
 require 'chapter'
 
 class Book
-  def initialize(yaml_file)
+  def initialize(yaml_file, config)
     @yaml_file = yaml_file
+    @config = config
   end
 
   def overview
@@ -21,7 +22,7 @@ class Book
 
 
   def directory
-    ['notes', title.downcase.gsub(/[^0-9a-z.\-]/, '-')].join '/'
+    [config.yaml_path, title.downcase.gsub(/[^0-9a-z.\-]/, '-')].join '/'
   end
 
   def chapter_list
@@ -93,6 +94,10 @@ class Book
 
   def yaml_data
     @yaml_data ||= YAML.load_file(yaml_file)
+  end
+
+  def config
+    @config
   end
 
   def attr_list
