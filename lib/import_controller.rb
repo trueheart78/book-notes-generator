@@ -22,17 +22,17 @@ class ImportController < FileSystem
   end
 
   def import
-    generator = NotesGenerator.new book
+    generator = NotesGenerator.new book, config
     generator.run
   end
 
   def book
-    @book ||= Book.new file_path
+    @book ||= Book.new yaml_file_path, config
   end
 
   def validate_file
     @errors << { message: 'No file passed' } if file.empty?
-    @errors << { message: "File not found (#{file_path})" } unless File.exist? file_path
+    @errors << { message: "File not found (#{yaml_file_path})" } unless File.exist? yaml_file_path
     @errors << { message: "Directory exists (#{book.directory}/)" } if File.exist? book.directory
   end
 end

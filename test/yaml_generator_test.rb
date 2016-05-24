@@ -5,17 +5,23 @@ class YamlGeneratorTest < Minitest::Test
   include TestHelper
   include FileSystemTestMixin
 
+  def setup
+    init_temp_dir
+  end
+
+  # failing
   def test_writes_file
     output = capture_output { subject.run }
 
-    assert File.exist? subject.file_path
-    assert_match(/File created: #{subject.file_path}/, output)
+    assert File.exist? subject.yaml_file_path
+    assert_match(/File created: #{subject.yaml_file_path}/, output)
   end
 
+  # failing
   def test_error_on_existing_file
     suppress_output { subject.run }
 
-    other_yaml_generator = YamlGenerator.new(sample_filename)
+    other_yaml_generator = YamlGenerator.new(sample_filename, test_config)
     error_string = capture_output{ other_yaml_generator.run }
 
     assert_match(/Error: File exists \(#{sample_file_path}\)/, error_string)
@@ -23,10 +29,11 @@ class YamlGeneratorTest < Minitest::Test
 
   def teardown
     File.unlink(sample_file_path) if File.exist? sample_file_path
+    destroy_temp_dir
   end
 
   def subject
-    YamlGenerator.new(sample_filename)
+    YamlGenerator.new(sample_filename, test_config)
   end
 
   def sample_filename
@@ -34,6 +41,6 @@ class YamlGeneratorTest < Minitest::Test
   end
 
   def sample_file_path
-    ['yaml', sample_filename].join '/'
+    [test_config.yaml_path, sample_filename].join '/'
   end
 end
