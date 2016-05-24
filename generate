@@ -1,6 +1,7 @@
 #!/usr/bin/env ruby
 $LOAD_PATH.unshift('lib')
 
+require 'config'
 require 'options'
 require 'book'
 require 'notes_generator'
