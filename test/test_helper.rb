@@ -51,4 +51,12 @@ module TestHelper
   def destroy_temp_dir
     FileUtils.rm_rf test_config.base_path
   end
+
+  def test_options
+    return @test_options if @test_options
+    ARGV << 'sample'
+    @test_options = Options.new
+    @test_options.parse!
+    @test_options
+  end
 end

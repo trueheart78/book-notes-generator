@@ -4,11 +4,20 @@ class ImportController < FileSystem
 
   def run
     validate
-    prompt_user if valid?
-    import if valid? && user_approved?
+    get_user_approval
+    import if looks_good?
   end
 
   private
+
+  def get_user_approval
+    prompt_user if valid? && user_viewed?
+    @user_input = 'y' unless user_viewed?
+  end
+
+  def looks_good?
+    valid? && user_approved?
+  end
 
   def prompt_user
     puts book.overview
@@ -19,6 +28,10 @@ class ImportController < FileSystem
 
   def user_approved?
     @user_input == 'y'
+  end
+
+  def user_viewed?
+    ENV['NODE_ENV'] != 'test'
   end
 
   def import
