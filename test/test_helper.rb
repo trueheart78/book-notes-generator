@@ -3,6 +3,7 @@ $LOAD_PATH.unshift(File.dirname(__FILE__))
 ENV['NODE_ENV'] = 'test'
 ENV['CONFIG_PATH'] = 'test/fixtures/config.test'
 
+require 'fileutils'
 require 'minitest/autorun'
 require 'file_system_test_mixin'
 require 'config'
@@ -10,7 +11,7 @@ require 'config'
 module TestHelper
   def capture_output
     old_stdout = $stdout
-    $stdout = StringIO.new('','w')
+    $stdout = StringIO.new '','w'
     yield
     $stdout.string
   ensure
@@ -27,13 +28,11 @@ module TestHelper
   end
 
   def init_temp_dir
-    require 'fileutils'
     FileUtils.mkdir_p Config.yaml_path
     FileUtils.mkdir_p Config.notes_path
   end
 
   def destroy_temp_dir
-    require 'fileutils'
     FileUtils.rm_rf Config.base_path
   end
 end
