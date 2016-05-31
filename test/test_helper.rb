@@ -53,7 +53,7 @@ module TestHelper
   end
 
   def test_options
-    return @test_options if @test_options
+    return @test_options if defined? @test_options
     ARGV << 'sample'
     @test_options = Options.new
     @test_options.parse!
