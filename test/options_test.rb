@@ -12,7 +12,7 @@ class OptionsTest < Minitest::Test
     options = Options.new
 
     assert_match help_text_regex, capture_output { options.parse! }
-    assert_equal false, options.continue?
+    refute options.continue?
   end
 
   def test_help_argument
@@ -20,7 +20,7 @@ class OptionsTest < Minitest::Test
     options = Options.new
 
     assert_match help_text_regex, capture_output { options.parse! }
-    assert_equal false, options.continue?
+    refute options.continue?
   end
 
   def test_create_argument
