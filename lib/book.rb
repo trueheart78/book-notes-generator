@@ -1,5 +1,6 @@
 require 'yaml'
 require 'chapter'
+require 'section'
 
 class Book
   def initialize(yaml_file, config)
