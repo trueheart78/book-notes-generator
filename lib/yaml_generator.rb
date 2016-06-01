@@ -31,8 +31,15 @@ class YamlGenerator < FileSystem
     :image:
     :image_ext:
 
-    :chapters:
-      - chapter
+    :sections:
+      -
+        :name:
+        :chapters:
+        - chapter
+      -
+        :name: Section 1
+        :chapters:
+        - chapter
     YAML
   end
 end

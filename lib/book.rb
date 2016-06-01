@@ -108,7 +108,16 @@ class Book
   end
 
   def yaml_data
-    @yaml_data ||= YAML.load_file(yaml_file)
+    @yaml_data ||= load_yaml_file
+  end
+
+  def load_yaml_file
+    YAML.load_file(yaml_file).tap do |yaml|
+      unless yaml.has_key? :sections
+        yaml[:sections] = [{name: nil, chapters: yaml[:chapters]}]
+        #yaml.delete :chapters
+      end
+    end
   end
 
   def config
