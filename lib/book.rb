@@ -53,7 +53,7 @@ class Book
       '',
       "[Purchase](#{purchase})",
       '',
-      'Notes:',
+      '## Chapter Notes:',
       ''
     ].concat(chapter_md).concat(image_md).join "\n"
   end
