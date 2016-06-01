@@ -44,6 +44,9 @@ And follow the prompts.
 
 ## Sample Book YAML
 
+An empty section name is seen as `nil`, and will not cause a section title to
+be written out.
+
 ```yaml
 ---
 :title: An Awesome Book
@@ -53,11 +56,21 @@ And follow the prompts.
 :image: https://image.example.com/an-awesome-book/
 :image_ext: jpg
 
-:chapters:
-  - The First Chapter
-  - The Second Chapter
-  - The Third Chapter
-  - In Closing
+:sections:
+  -
+    :name:
+    :chapters:
+    - The Intro Chapter
+  -
+    :name: Part 1. Kicking Butt
+    :chapters:
+    - The Second Chapter
+    - The Third Chapter
+  -
+    :name: Part 2. Taking Names
+    :chapters:
+    - The Fourth Chapter
+    - In Closing
 ```
 
 ## Sample Output
