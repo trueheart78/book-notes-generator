@@ -87,10 +87,13 @@ run `./generate sample-book`, you should see the following:
 - Image? true [jpg]
    https://image.example.com/an-awesome-book/
 - Chapters: 4
-   01. The First Chapter - ch01-the-first-chapter.md
-   02. The Second Chapter - ch02-the-second-chapter.md
-   03. The Third Chapter - ch03-the-third-chapter.md
-   04. In Closing - ch04-in-closing.md
+   01. The Intro Chapter - ch01-the-intro-chapter.md
+   Part 1. Kicking Butt
+     02. The Second Chapter - ch02-the-second-chapter.md
+     03. The Third Chapter - ch03-the-third-chapter.md
+   Part 2. Taking Names
+     04. The Fourth Chapter - ch04-the-fourth-chapter.md
+     05. In Closing - ch05-in-closing.md
 ---------------------
 Import 'An Awesome Book' by That One Girl :: 4 chapters? (y/n)
 ```
