@@ -8,16 +8,10 @@ class BookTest < Minitest::Test
     @subject ||= Book.new book_path, test_config
   end
 
-  def test_image_file
-    assert subject.image?
-    assert_equal 'cover.jpg', subject.image_file
-  end
-
   def test_missing_image_file
     fixture_path = fixture_book_path 'book-valid-no-image'
     subject_wo_image = Book.new fixture_path, test_config
-    refute subject_wo_image.image?
-    refute subject_wo_image.image
+    refute subject_wo_image.image.valid?
   end
 
   def test_directory
@@ -32,6 +26,10 @@ class BookTest < Minitest::Test
     assert_equal 4, subject.chapter_list.size
   end
 
+  def test_chapter_length
+    assert_equal 4, subject.chapter_length
+  end
+
   def test_overview
     assert_match(/- Directory: #{subject.relative_directory}/, subject.overview)
     assert_match(/- Path: #{subject.directory}/, subject.overview)
@@ -39,8 +37,8 @@ class BookTest < Minitest::Test
     assert_match(/- Purchase: #{subject.purchase}/, subject.overview)
     assert_match(/- Author: #{subject.author}/, subject.overview)
     assert_match(/- Homepage: #{subject.homepage}/, subject.overview)
-    assert_match(/- Image\? #{subject.image?} \[#{subject.image_ext}\]/, subject.overview)
-    assert_match(/#{subject.image}/, subject.overview)
+    assert_match(/- Image\? #{subject.image.valid?} \[#{subject.image.ext}\]/, subject.overview)
+    assert_match(/#{subject.image.url}/, subject.overview)
   end
 
   def test_to_md
@@ -62,7 +60,17 @@ class BookTest < Minitest::Test
     end
   end
 
+  def test_sections_load
+    assert_equal 1, subject.sections.size
+  end
+
+  def test_multiple_sections
+    fixture_path = fixture_book_path 'book-valid-w-sections'
+    subject_w_sections = Book.new fixture_path, test_config
+    assert_equal 3, subject_w_sections.sections.size
+  end
+
   def yaml_fields
-    [:title, :purchase, :author, :homepage, :image, :image_ext, :chapters]
+    [:title, :purchase, :author, :homepage, :image, :image_ext, :sections]
   end
 end

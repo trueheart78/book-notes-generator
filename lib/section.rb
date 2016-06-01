@@ -1,0 +1,66 @@
+require 'chapter'
+
+class Section
+  attr_reader :name
+
+  def initialize(name, chapter_list, offset: 0)
+    @name = name
+    @chapter_list = chapter_list
+    @offset = offset
+  end
+
+  def name?
+    return true unless name.nil?
+  end
+
+  def chapters
+    @chapters ||= @chapter_list.map.with_index do |name, num|
+      Chapter.new chapter_offset(num), name
+    end
+  end
+
+  def chapter_length
+    @chapter_list.size
+  end
+
+  def self.create_from_chapters(chapters)
+    self.new(nil, chapters)
+  end
+
+  def overview
+    (name_overview + chapter_overview).join "\n"
+  end
+
+  def to_md
+    (name_md + chapter_md).join "\n"
+  end
+
+  private
+
+  def chapter_pad
+    return '    ' if name?
+    '  '
+  end
+
+  def name_md
+    return ["- **#{name}**"] if name?
+    []
+  end
+
+  def name_overview
+    return ["  #{name}"] if name?
+    []
+  end
+
+  def chapter_overview
+    chapters.map { |chapter| "#{chapter_pad}#{chapter}" }
+  end
+
+  def chapter_md
+    chapters.map(&:readme_md).map { |chapter| "- #{chapter}" }
+  end
+
+  def chapter_offset(num)
+    num + @offset
+  end
+end

@@ -1,24 +1,12 @@
 require 'yaml'
 require 'chapter'
+require 'section'
+require 'image'
 
 class Book
   def initialize(yaml_file, config)
     @yaml_file = yaml_file
     @config = config
-  end
-
-  def overview
-    [
-      "- Directory: #{relative_directory}",
-      "- Path: #{directory}",
-      "- Title: #{title}",
-      "- Purchase: #{purchase}",
-      "- Author: #{author}",
-      "- Homepage: #{homepage}",
-      "- Image? #{image?} [#{image_ext}]",
-      "   #{image}",
-      "- Chapters: #{chapters.size}",
-    ].concat(chapter_overview).join "\n"
   end
 
   def directory
@@ -29,17 +17,30 @@ class Book
     config.compose_notes_dir(title_as_directory)
   end
 
+  def chapter_length
+    sections.map(&:chapter_length).inject(&:+)
+  end
+
   def chapter_list
-    @chapters ||= chapters.map.with_index { |name, num| Chapter.new num, name }
+    sections.map(&:chapters).flatten
   end
 
-  def image?
-    return true if image && !image.empty?
-    false
+  def image
+    @image ||= Image.new yaml_data[:image], yaml_data[:image_ext]
   end
 
-  def image_file
-    "cover.#{image_ext}"
+  def overview
+    [
+      "- Directory: #{relative_directory}",
+      "- Path: #{directory}",
+      "- Title: #{title}",
+      "- Purchase: #{purchase}",
+      "- Author: #{author}",
+      "- Homepage: #{homepage}",
+      "- Image? #{image.valid?} [#{image.ext}]",
+      "   #{image.url}",
+      "- Chapters: #{chapter_length}",
+    ].concat(section_overview).join "\n"
   end
 
   def to_md
@@ -50,15 +51,17 @@ class Book
       '',
       "By the #{adjective} [#{author}](#{homepage})",
       '',
-      "[Purchase](#{purchase})",
+      '## Links:',
       '',
-      'Notes:',
+      "- [Purchase #{title}](#{purchase})",
+      '',
+      '## Chapter Notes:',
       ''
-    ].concat(chapter_md).concat(image_md).join "\n"
+    ].concat(section_md).concat(image_md).join "\n"
   end
 
   def to_s
-    "'#{title}' by #{author} :: #{chapters.size} chapters"
+    "'#{title}' by #{author} :: #{chapter_length} chapters"
   end
 
   def method_missing(method_name, *arguments, &block)
@@ -75,24 +78,38 @@ class Book
 
   private
 
+  def sections
+    @sections ||= load_sections
+  end
+
+  def load_sections
+    @sections = []
+    chapter_offset = 0
+    yaml_data[:sections].each do |s|
+      @sections << Section.new(s[:name], s[:chapters], offset: chapter_offset)
+      chapter_offset += s[:chapters].size
+    end
+    @sections
+  end
+
   def title_as_directory
     title.downcase.gsub(/[^0-9a-z.\-]/, '-')
   end
 
-  def chapter_overview
-    chapter_list.map { |x| left_pad(x) }
+  def section_overview
+    sections.map(&:overview)
   end
 
   def left_pad(string)
     "   #{string}"
   end
 
-  def chapter_md
-    chapter_list.map(&:readme_md).map { |chapter| "- #{chapter}" }
+  def section_md
+    sections.map(&:to_md)
   end
 
   def image_md
-    return [ '', "![book cover](#{image_file})" ] if image?
+    return [ '', image.to_md ] if image.valid?
     []
   end
 
@@ -101,7 +118,16 @@ class Book
   end
 
   def yaml_data
-    @yaml_data ||= YAML.load_file(yaml_file)
+    @yaml_data ||= load_yaml_file
+  end
+
+  def load_yaml_file
+    YAML.load_file(yaml_file).tap do |yaml|
+      unless yaml.has_key? :sections
+        yaml[:sections] = [{name: nil, chapters: yaml[:chapters]}]
+        yaml.delete :chapters
+      end
+    end
   end
 
   def config
@@ -109,7 +135,7 @@ class Book
   end
 
   def attr_list
-    [:title, :purchase, :author, :homepage, :image, :image_ext, :chapters]
+    [:title, :purchase, :author, :homepage, :image, :image_ext, :sections]
   end
 
   def adjective
