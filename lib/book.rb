@@ -129,7 +129,7 @@ class Book
     YAML.load_file(yaml_file).tap do |yaml|
       unless yaml.has_key? :sections
         yaml[:sections] = [{name: nil, chapters: yaml[:chapters]}]
-        #yaml.delete :chapters
+        yaml.delete :chapters
       end
     end
   end
@@ -139,7 +139,7 @@ class Book
   end
 
   def attr_list
-    [:title, :purchase, :author, :homepage, :image, :image_ext, :chapters, :sections]
+    [:title, :purchase, :author, :homepage, :image, :image_ext, :sections]
   end
 
   def adjective
