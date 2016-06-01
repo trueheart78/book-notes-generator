@@ -36,7 +36,7 @@ class SectionTest < Minitest::Test
     markdown = subject.to_md
     assert_match(/- \*\*#{valid_name}\*\*/, markdown)
     chapter_list.each do |chapter_name|
-      assert_match(/\s\s- \[Chapter \d\. #{chapter_name}\]/, markdown)
+      assert_match(/- \[Chapter \d\. #{chapter_name}\]/, markdown)
     end
   end
 
@@ -44,7 +44,7 @@ class SectionTest < Minitest::Test
     markdown = offset_subject.to_md
     assert_match(/- \*\*#{valid_name}\*\*/, markdown)
     chapter_list_offset.each do |chapter_name|
-      assert_match(/\s\s- \[Chapter \d+\. #{chapter_name}\]/, markdown)
+      assert_match(/- \[Chapter \d+\. #{chapter_name}\]/, markdown)
     end
   end
 
@@ -77,7 +77,6 @@ class SectionTest < Minitest::Test
       assert_match(/\s\s\d+\. #{chapter_name}\s-\s.+\.md/, overview)
     end
   end
-
 
   def valid_name
     'test'

@@ -8,7 +8,7 @@ class NotesGenerator
 
   def run
     create_directory
-    download_image
+    download_image if image.valid?
     write_readme
     write_chapters
     inform_user
@@ -65,7 +65,7 @@ class NotesGenerator
   end
 
   def download_image
-    @image_saved ||= system("wget -O #{book.directory}/#{book.image_file} #{book.image}")
+    @image_saved ||= system("wget -O #{book.directory}/#{image.file_name} #{image.url}")
   end
 
   def image_saved?
@@ -74,6 +74,10 @@ class NotesGenerator
 
   def book
     @book
+  end
+
+  def image
+    @book.image
   end
 
   def config
