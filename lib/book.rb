@@ -18,7 +18,7 @@ class Book
       "- Homepage: #{homepage}",
       "- Image? #{image?} [#{image_ext}]",
       "   #{image}",
-      "- Chapters: #{chapters.size}",
+      "- Chapters: #{chapter_length}",
     ].concat(chapter_overview).join "\n"
   end
 
@@ -28,6 +28,10 @@ class Book
 
   def relative_directory
     config.compose_notes_dir(title_as_directory)
+  end
+
+  def chapter_length
+    chapters.size
   end
 
   def chapter_list
@@ -51,7 +55,9 @@ class Book
       '',
       "By the #{adjective} [#{author}](#{homepage})",
       '',
-      "[Purchase](#{purchase})",
+      '## Links:',
+      '',
+      "- [Purchase](#{purchase})",
       '',
       '## Chapter Notes:',
       ''
@@ -59,7 +65,7 @@ class Book
   end
 
   def to_s
-    "'#{title}' by #{author} :: #{chapters.size} chapters"
+    "'#{title}' by #{author} :: #{chapter_length} chapters"
   end
 
   def method_missing(method_name, *arguments, &block)
@@ -110,7 +116,7 @@ class Book
   end
 
   def attr_list
-    [:title, :purchase, :author, :homepage, :image, :image_ext, :chapters]
+    [:title, :purchase, :author, :homepage, :image, :image_ext, :chapters, :sections]
   end
 
   def adjective
