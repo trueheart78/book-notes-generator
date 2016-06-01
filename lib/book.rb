@@ -34,10 +34,6 @@ class Book
     sections.map(&:chapter_length).inject(&:+)
   end
 
-  def chapter_list
-    @chapters ||= chapters.map.with_index { |name, num| Chapter.new num, name }
-  end
-
   def image?
     return true if image && !image.empty?
     false
