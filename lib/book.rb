@@ -19,7 +19,7 @@ class Book
       "- Image? #{image?} [#{image_ext}]",
       "   #{image}",
       "- Chapters: #{chapter_length}",
-    ].concat(chapter_overview).join "\n"
+    ].concat(section_overview).join "\n"
   end
 
   def directory
@@ -31,7 +31,7 @@ class Book
   end
 
   def chapter_length
-    chapters.size
+    sections.map(&:chapter_length).inject(&:+)
   end
 
   def chapter_list
@@ -61,7 +61,7 @@ class Book
       '',
       '## Chapter Notes:',
       ''
-    ].concat(chapter_md).concat(image_md).join "\n"
+    ].concat(section_md).concat(image_md).join "\n"
   end
 
   def to_s
@@ -82,20 +82,34 @@ class Book
 
   private
 
+  def sections
+    @sections ||= load_sections
+  end
+
+  def load_sections
+    @sections = []
+    chapter_offset = 0
+    yaml_data[:sections].each do |s|
+      @sections << Section.new(s[:name], s[:chapters], offset: chapter_offset)
+      chapter_offset += s[:chapters].size
+    end
+    @sections
+  end
+
   def title_as_directory
     title.downcase.gsub(/[^0-9a-z.\-]/, '-')
   end
 
-  def chapter_overview
-    chapter_list.map { |x| left_pad(x) }
+  def section_overview
+    sections.map(&:overview)
   end
 
   def left_pad(string)
     "   #{string}"
   end
 
-  def chapter_md
-    chapter_list.map(&:readme_md).map { |chapter| "- #{chapter}" }
+  def section_md
+    sections.map(&:to_md)
   end
 
   def image_md

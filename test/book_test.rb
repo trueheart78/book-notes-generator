@@ -28,8 +28,8 @@ class BookTest < Minitest::Test
     assert_equal 'notes/an-awesome-book', subject.relative_directory
   end
 
-  def test_chapter_list
-    assert_equal 4, subject.chapter_list.size
+  def test_chapter_length
+    assert_equal 4, subject.chapter_length
   end
 
   def test_overview
