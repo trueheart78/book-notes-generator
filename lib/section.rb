@@ -57,7 +57,7 @@ class Section
   end
 
   def chapter_md
-    chapters.map(&:readme_md).map { |chapter| "#{chapter_pad}- #{chapter}" }
+    chapters.map(&:readme_md).map { |chapter| "- #{chapter}" }
   end
 
   def chapter_offset(num)

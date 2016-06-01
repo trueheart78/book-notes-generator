@@ -1,25 +1,12 @@
 require 'yaml'
 require 'chapter'
 require 'section'
+require 'image'
 
 class Book
   def initialize(yaml_file, config)
     @yaml_file = yaml_file
     @config = config
-  end
-
-  def overview
-    [
-      "- Directory: #{relative_directory}",
-      "- Path: #{directory}",
-      "- Title: #{title}",
-      "- Purchase: #{purchase}",
-      "- Author: #{author}",
-      "- Homepage: #{homepage}",
-      "- Image? #{image?} [#{image_ext}]",
-      "   #{image}",
-      "- Chapters: #{chapter_length}",
-    ].concat(section_overview).join "\n"
   end
 
   def directory
@@ -34,13 +21,26 @@ class Book
     sections.map(&:chapter_length).inject(&:+)
   end
 
-  def image?
-    return true if image && !image.empty?
-    false
+  def chapter_list
+    sections.map(&:chapters).flatten
   end
 
-  def image_file
-    "cover.#{image_ext}"
+  def image
+    @image ||= Image.new yaml_data[:image], yaml_data[:image_ext]
+  end
+
+  def overview
+    [
+      "- Directory: #{relative_directory}",
+      "- Path: #{directory}",
+      "- Title: #{title}",
+      "- Purchase: #{purchase}",
+      "- Author: #{author}",
+      "- Homepage: #{homepage}",
+      "- Image? #{image.valid?} [#{image.ext}]",
+      "   #{image.url}",
+      "- Chapters: #{chapter_length}",
+    ].concat(section_overview).join "\n"
   end
 
   def to_md
@@ -109,7 +109,7 @@ class Book
   end
 
   def image_md
-    return [ '', "![book cover](#{image_file})" ] if image?
+    return [ '', image.to_md ] if image.valid?
     []
   end
 
