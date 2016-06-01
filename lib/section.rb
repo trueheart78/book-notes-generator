@@ -8,4 +8,9 @@ class Section
   def name?
     return true unless name.nil?
   end
+
+  def to_md
+    return '' unless name?
+    "- **#{name}**"
+  end
 end
