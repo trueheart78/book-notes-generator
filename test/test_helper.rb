@@ -7,6 +7,7 @@ require 'fileutils'
 require 'minitest/autorun'
 require 'file_system_test_mixin'
 require 'config'
+require 'options'
 
 module TestHelper
   def capture_output
