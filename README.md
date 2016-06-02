@@ -86,7 +86,7 @@ run `./generate sample-book`, you should see the following:
 - Homepage: http://www.thatonegirl.com/
 - Image? true [jpg]
    https://image.example.com/an-awesome-book/
-- Chapters: 4
+- Chapters: 5
    01. The Intro Chapter - ch01-the-intro-chapter.md
    Part 1. Kicking Butt
      02. The Second Chapter - ch02-the-second-chapter.md
@@ -95,7 +95,7 @@ run `./generate sample-book`, you should see the following:
      04. The Fourth Chapter - ch04-the-fourth-chapter.md
      05. In Closing - ch05-in-closing.md
 ---------------------
-Import 'An Awesome Book' by That One Girl :: 4 chapters? (y/n)
+Import 'An Awesome Book' by That One Girl :: 5 chapters? (y/n)
 ```
 
 Entering `y` will generate the proper files in the noted directory,
