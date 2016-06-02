@@ -2,14 +2,30 @@
 
 Companion to [Book Notes](https://github.com/trueheart78/book-notes)
 
-## Todo
+1. [Outstanding Tasks](#outstanding-tasks)
+1. [Development](#development)
+1. [Adding a Book](#adding-a-book)
+   1. [Configuration](#configuration)
+   1. [Creating YAML for a book](#creating-yaml-for-a-book)
+   1. [Importing a book](#importing-a-book)
+   1. [Sample Book YAML](#sample-book-yaml)
+   1. [Sample Output](#sample-output)
 
-- Wrap tests around untested code
-- Update this README with better instructions
+
+## Outstanding Tasks
+
+- Import Controller
+- Notes Generator
+
+## Development
+
+Make sure bundler is installed, and then run `bundle install`.
+
+Tests can be run with `bundle exec rake test`. Tests are written using Minitest.
 
 ## Adding a Book
 
-### Config
+### Configuration
 
 Make a local copy of the `config.default` file:
 
@@ -112,9 +128,3 @@ Please add the following to the root book-notes README.md file:
 
 Book notes generated successfully.
 ```
-
-## Development
-
-Make sure bundler is installed, and then run `bundle install`.
-
-Tests can be run with `bundle exec rake test`. Tests are written using Minitest.
