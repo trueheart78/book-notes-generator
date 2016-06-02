@@ -6,7 +6,7 @@ Companion to [Book Notes](https://github.com/trueheart78/book-notes)
 1. [Development](#development)
 1. [Adding a Book](#adding-a-book)
    1. [Configuration](#configuration)
-   1. [Creating YAML for a book](#creating-yaml-for-a-book)
+   1. [Creating YAML For a Book](#creating-yaml-for-a-book)
    1. [Importing a book](#importing-a-book)
    1. [Sample Book YAML](#sample-book-yaml)
    1. [Sample Output](#sample-output)
@@ -14,8 +14,8 @@ Companion to [Book Notes](https://github.com/trueheart78/book-notes)
 
 ## Outstanding Tasks
 
-- Import Controller
-- Notes Generator
+- Write tests for the Import Controller
+- Write tests for the Notes Generator
 
 ## Development
 
@@ -37,7 +37,7 @@ Edit `config.local` with a full path for `book_notes_path`, the proper
 `yaml_directory`, and the `notes_directory`. Leaving either of the directories
 blank is allowed, and for the `notes_directory`, likely desired.
 
-### Creating YAML for a Book
+### Creating YAML For a Book
 
 Books can be added by creating a `book-name.yml` file in the `yaml_directory`
 location defined in the config file.
