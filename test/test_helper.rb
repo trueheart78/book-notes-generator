@@ -25,15 +25,15 @@ module TestHelper
   end
 
   def fixture_path
-    ['test','fixtures'].join '/'
+    File.join 'test','fixtures'
   end
 
   def fixture_book_path(file)
-    [fixture_path, "books", "#{file}.yml"].join '/'
+    File.join fixture_path, "books", "#{file}.yml"
   end
 
   def fixture_config_path(config)
-    [fixture_path, "config", "#{config}"].join '/'
+    File.join fixture_path, "config", "#{config}"
   end
 
   def test_config_path
