@@ -20,7 +20,7 @@ class FileSystem
   end
 
   def yaml_file_path
-    [config.yaml_path, file].join '/'
+    File.join config.yaml_path, file
   end
 
   private
