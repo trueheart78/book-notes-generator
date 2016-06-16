@@ -67,7 +67,8 @@ class BookTest < Minitest::Test
   def test_multiple_sections
     fixture_path = fixture_book_path 'book-valid-w-sections'
     subject_w_sections = Book.new fixture_path, test_config
-    assert_equal 3, subject_w_sections.sections.size
+    assert_equal 4, subject_w_sections.sections.size
+    assert_match(/Appendices/, subject_w_sections.to_md)
   end
 
   def test_appendices

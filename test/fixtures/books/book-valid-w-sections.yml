@@ -20,3 +20,8 @@
     :name: Section 2
     :chapters:
       - In Closing
+  -
+    :name: Appendices
+    :chapters:
+      - The First Appendix
+      - The Second Appendix
