@@ -1,10 +1,11 @@
 class Chapter
   attr_reader :num, :name, :file
 
-  def initialize(num, name, zero_based: true)
+  def initialize(num, name, appendix: false, zero_based: true)
     @num = num
     @num += 1 if zero_based
     @name = name
+    @appendix = appendix
   end
 
   def to_s
@@ -12,7 +13,7 @@ class Chapter
   end
 
   def file_name
-    "ch#{num_str}-#{name_as_file}.md"
+    "#{file_name_prefix}#{num_str}-#{name_as_file}.md"
   end
 
   def readme_md
@@ -31,8 +32,24 @@ class Chapter
 
   private
 
+  attr_reader :appendix
+
   def proper_name
-    "Chapter #{num}. #{name}"
+    "#{proper_name_prefix} #{num}. #{name}"
+  end
+
+  def proper_name_prefix
+    return 'Appendix' if appendix?
+    'Chapter'
+  end
+
+  def file_name_prefix
+    return 'ap' if appendix?
+    'ch'
+  end
+
+  def appendix?
+    appendix
   end
 
   def num_str
@@ -41,7 +58,7 @@ class Chapter
   end
 
   def name_as_file
-    name.gsub(/[?',":]/,'').
+    name.gsub(/[?'!,":]/,'').
       gsub(/\-/,' ').
       gsub(/\s\s\s/,' ').
       gsub(/\s\s/,' ').

@@ -123,11 +123,18 @@ class Book
 
   def load_yaml_file
     YAML.load_file(yaml_file).tap do |yaml|
-      unless yaml.has_key? :sections
-        yaml[:sections] = [{name: nil, chapters: yaml[:chapters]}]
-        yaml.delete :chapters
-      end
+      create_sections(yaml) unless yaml.has_key? :sections
     end
+  end
+
+  def create_sections(yaml)
+    yaml[:sections] = [{name: nil, chapters: yaml[:chapters]}]
+    yaml.delete :chapters
+    if yaml.has_key? :appendices
+      yaml[:sections] << {name: 'Appendices', chapters: yaml[:appendices]}
+      yaml.delete :appendices
+    end
+    yaml
   end
 
   def config
