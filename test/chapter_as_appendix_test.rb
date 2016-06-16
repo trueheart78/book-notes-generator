@@ -30,8 +30,8 @@ class ChapterAsAppendixTest < Minitest::Test
 
   def mock_chapter
     @mock_chapter ||= OpenStruct.new.tap do |c|
-      c.name = 'The First Appendix'
-      c.name_as_file = 'the-first-appendix'
+      c.name = 'The Ninth Appendix'
+      c.name_as_file = 'the-ninth-appendix'
       c.num = 8
       c.num_str = '09'
       c.file_name = "ap#{c.num_str}-#{c.name_as_file}.md"
