@@ -137,7 +137,7 @@ run `./generate sample-book`, you should see the following:
 - Homepage: http://www.thatonegirl.com/
 - Image? true [jpg]
    https://image.example.com/an-awesome-book/
-- Chapters: 5
+- Chapters: 7
    01. The Intro Chapter - ch01-the-intro-chapter.md
    Part 1. Kicking Butt
      02. The Second Chapter - ch02-the-second-chapter.md
