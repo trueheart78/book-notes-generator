@@ -149,7 +149,7 @@ run `./generate sample-book`, you should see the following:
      01. The First Appendix - ap01-the-first-appendix.md
      02. The Second Appendix - ap02-the-second-appendix.md
 ---------------------
-Import 'An Awesome Book' by That One Girl :: 5 chapters? (y/n)
+Import 'An Awesome Book' by That One Girl :: 7 chapters? (y/n)
 ```
 
 Entering `y` will generate the proper files in the noted directory,
