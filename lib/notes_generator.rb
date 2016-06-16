@@ -68,7 +68,7 @@ class NotesGenerator
 
   def download_image
     return @image_saved if @image_saved
-    output_path = File.join("#{book.directory}","#{image.file_name}")
+    output_path = File.join "#{book.directory}", "#{image.file_name}"
     @image_saved = system 'wget', '-q', '-O', output_path, "#{image.url}"
   end
 
