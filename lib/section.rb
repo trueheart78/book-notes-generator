@@ -15,7 +15,11 @@ class Section
 
   def chapters
     @chapters ||= @chapter_list.map.with_index do |name, num|
-      Chapter.new chapter_offset(num), name
+      if appendices?
+        Chapter.new num, name, appendix: true
+      else
+        Chapter.new chapter_offset(num), name
+      end
     end
   end
 
@@ -36,6 +40,11 @@ class Section
   end
 
   private
+
+  def appendices?
+    return false unless name
+    name.downcase.include?('appendix') || name.downcase.include?('appendices')
+  end
 
   def chapter_pad
     return '    ' if name?

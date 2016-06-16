@@ -60,6 +60,36 @@ And follow the prompts.
 
 ## Sample Book YAML
 
+There are two different supported formats for book YAML. The earlier version did
+not support sectioned content, but is still applicable for many books out there.
+
+### Without Sections
+
+The `:appendices:` portion is optional.
+
+```yaml
+---
+:title: An Awesome Book
+:purchase: http://buyonline.example.com
+:author: That One Girl
+:homepage: http://www.thatonegirl.com/
+:image: https://image.example.com/an-awesome-book/
+:image_ext: jpg
+
+:chapters:
+  - The Intro Chapter
+  - The Second Chapter
+  - The Third Chapter
+  - The Fourth Chapter
+  - In Closing
+
+:appendices:
+  - The First Appendix
+  - The Second Appendix
+```
+
+### With Sections
+
 An empty section name is seen as `nil`, and will not cause a section title to
 be written out.
 
@@ -89,7 +119,7 @@ be written out.
     - In Closing
 ```
 
-## Sample Output
+## Sample Output for Sections
 
 After you save the above as `yaml/sample-book.yml`, and
 run `./generate sample-book`, you should see the following:

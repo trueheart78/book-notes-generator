@@ -70,6 +70,12 @@ class BookTest < Minitest::Test
     assert_equal 3, subject_w_sections.sections.size
   end
 
+  def test_appendices
+    fixture_path = fixture_book_path 'book-valid-w-appendices'
+    subject_w_appendices = Book.new fixture_path, test_config
+    assert_equal 2, subject_w_appendices.sections.size
+  end
+
   def yaml_fields
     [:title, :purchase, :author, :homepage, :image, :image_ext, :sections]
   end
