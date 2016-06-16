@@ -117,6 +117,11 @@ be written out.
     :chapters:
     - The Fourth Chapter
     - In Closing
+  -
+    :name: Appendices
+    :chapters:
+      - The First Appendix
+      - The Second Appendix
 ```
 
 ## Sample Output for Sections
@@ -140,6 +145,9 @@ run `./generate sample-book`, you should see the following:
    Part 2. Taking Names
      04. The Fourth Chapter - ch04-the-fourth-chapter.md
      05. In Closing - ch05-in-closing.md
+   Appendices
+     01. The First Appendix - ap01-the-first-appendix.md
+     02. The Second Appendix - ap02-the-second-appendix.md
 ---------------------
 Import 'An Awesome Book' by That One Girl :: 5 chapters? (y/n)
 ```
