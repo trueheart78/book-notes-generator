@@ -16,6 +16,8 @@ class NotesGenerator
 
   private
 
+  attr_reader :book, :config
+
   def rollback
     exit 1
   end
@@ -65,22 +67,16 @@ class NotesGenerator
   end
 
   def download_image
-    @image_saved ||= system("wget -O #{book.directory}/#{image.file_name} #{image.url}")
+    return @image_saved if @image_saved
+    output_path = File.join("#{book.directory}","#{image.file_name}")
+    @image_saved = system 'wget', '-q', '-O', output_path, "#{image.url}"
   end
 
   def image_saved?
     download_image
   end
 
-  def book
-    @book
-  end
-
   def image
     @book.image
-  end
-
-  def config
-    @config
   end
 end
