@@ -1,4 +1,5 @@
 require 'yaml'
+require 'pathname'
 require 'chapter'
 require 'section'
 require 'image'
@@ -33,6 +34,7 @@ class Book
     [
       "- Directory: #{relative_directory}",
       "- Path: #{directory}",
+      "  - To Parent: #{project_readme_path}",
       "- Title: #{title}",
       "- Purchase: #{purchase}",
       "- Author: #{author}",
@@ -45,7 +47,7 @@ class Book
 
   def to_md
     @md ||= [
-      "[&lt;&lt; Back to project home](#{readme_path})",
+      "[&lt;&lt; Back to project home](#{project_readme_path})",
       '',
       "# #{title}",
       '',
@@ -94,8 +96,8 @@ class Book
     @sections
   end
 
-  def readme_path
-    File.join config.relative_path, 'README.md'
+  def project_readme_path
+    File.join(config.relative_path, 'README.md')
   end
 
   def title_as_directory
