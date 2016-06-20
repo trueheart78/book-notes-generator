@@ -36,6 +36,7 @@ class FileSystem
   end
 
   def validate_file
+    raise 'Method not implemented'
   end
 
   def config
