@@ -13,15 +13,15 @@ class ConfigTest < Minitest::Test
   end
 
   def test_base_path
-    assert_equal('tmp', subject.base_path)
+    assert_equal(Pathname.new('tmp'), subject.base_path)
   end
 
   def test_yaml_path
-    assert_equal('tmp/_yaml_', subject.yaml_path)
+    assert_equal(Pathname.new('tmp/_yaml_'), subject.yaml_path)
   end
 
   def test_notes_path
-    assert_equal('tmp/notes', subject.notes_path)
+    assert_equal(Pathname.new('tmp/notes'), subject.notes_path)
   end
 
   def test_valid
@@ -54,11 +54,15 @@ class ConfigTest < Minitest::Test
     assert_equal 'book-dir', empty_notes_config.compose_notes_dir('book-dir')
   end
 
+  def test_relative_path
+    assert_equal Pathname.new('..'), subject.relative_path
+  end
+
   def invalid_config_path
-    'bad/config/path'
+    Pathname.new 'bad/config/path'
   end
 
   def empty_notes_config_file
-    'config-sans-notes-dir'
+    Pathname.new 'config-sans-notes-dir'
   end
 end
