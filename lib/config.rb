@@ -21,7 +21,11 @@ class Config
   end
 
   def relative_path
-    base_path.relative_path_from notes_path
+    # if the notes dir is nil, then we are only a single jump away
+    # if the notes path is not nil, then we are n+1 jumps away
+    @relative_path = Pathname.new '..'
+    @relative_path.join(base_path.relative_path_from notes_path) if notes_directory?
+    @relative_path
   end
 
   def valid?
@@ -32,7 +36,7 @@ class Config
   def compose_notes_dir(book_directory)
     load_yaml
     dir = []
-    dir << yaml_data['notes_directory'] if yaml_data['notes_directory']
+    dir << yaml_data['notes_directory'] if notes_directory?
     dir << book_directory
     Pathname.new File.join(dir)
   end
@@ -68,5 +72,9 @@ class Config
     @valid = true
   rescue Errno::ENOENT
     @valid = false
+  end
+
+  def notes_directory?
+    return true if yaml_data['notes_directory']
   end
 end

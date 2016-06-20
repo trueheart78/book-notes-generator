@@ -46,6 +46,7 @@ class NotesGenerator
 
   def write_readme
     File.open(readme_path, 'wb') do |file|
+      puts book.to_md
       file.write book.to_md
     end
   end

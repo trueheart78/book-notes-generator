@@ -64,6 +64,12 @@ class ConfigTest < Minitest::Test
     assert_equal Pathname.new('..'), subject.relative_path
   end
 
+  def test_relative_path_when_notes_is_nil
+    config_path = fixture_config_path empty_notes_config_file
+    empty_notes_config = Config.new config_path: config_path
+    assert_equal Pathname.new('..'), empty_notes_config.relative_path
+  end
+
   def invalid_config_path
     Pathname.new 'bad/config/path'
   end
