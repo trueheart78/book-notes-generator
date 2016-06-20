@@ -33,7 +33,7 @@ class Config
     dir = []
     dir << yaml_data['notes_directory'] if yaml_data['notes_directory']
     dir << book_directory
-    File.join dir
+    Pathname.new File.join(dir)
   end
 
   private

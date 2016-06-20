@@ -10,11 +10,11 @@ class Book
   end
 
   def directory
-    [config.notes_path, title_as_directory].join '/'
+    config.notes_path.join title_as_directory
   end
 
   def relative_directory
-    config.compose_notes_dir(title_as_directory)
+    config.compose_notes_dir title_as_directory
   end
 
   def chapter_length
@@ -45,7 +45,7 @@ class Book
 
   def to_md
     @md ||= [
-      '[&lt;&lt; Back to project home](../../README.md)',
+      "[&lt;&lt; Back to project home](#{readme_path})",
       '',
       "# #{title}",
       '',
@@ -78,6 +78,8 @@ class Book
 
   private
 
+  attr_reader :yaml_file, :config
+
   def sections
     @sections ||= load_sections
   end
@@ -90,6 +92,10 @@ class Book
       chapter_offset += s[:chapters].size
     end
     @sections
+  end
+
+  def readme_path
+    File.join config.relative_path, 'README.md'
   end
 
   def title_as_directory
@@ -113,10 +119,6 @@ class Book
     []
   end
 
-  def yaml_file
-    @yaml_file
-  end
-
   def yaml_data
     @yaml_data ||= load_yaml_file
   end
@@ -135,10 +137,6 @@ class Book
       yaml.delete :appendices
     end
     yaml
-  end
-
-  def config
-    @config
   end
 
   def attr_list
