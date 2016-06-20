@@ -1,4 +1,5 @@
 require 'yaml'
+require 'pathname'
 
 class Config
   def initialize(config_path: nil)
@@ -7,7 +8,7 @@ class Config
 
   def base_path
     load_yaml
-    yaml_data['book_notes_path'] if valid?
+    Pathname.new yaml_data['book_notes_path'] if valid?
   end
 
   def yaml_path
@@ -16,6 +17,10 @@ class Config
 
   def notes_path
     @notes_path ||= generate_path 'notes_directory'
+  end
+
+  def relative_path
+    base_path.relative_path_from notes_path
   end
 
   def valid?
@@ -28,15 +33,17 @@ class Config
     dir = []
     dir << yaml_data['notes_directory'] if yaml_data['notes_directory']
     dir << book_directory
-    dir.join '/'
+    File.join dir
   end
 
   private
 
-  def generate_path(config_name)
-    path = [base_path]
-    path << yaml_data[config_name] if yaml_data[config_name]
-    path.join '/'
+  attr_reader :use_config_path, :yaml_data
+
+  def generate_path(config_key)
+    return base_path.join(yaml_data[config_key])
+    #return base_path.join(yaml_data[config_key]) if yaml_data[config_key]
+    base_path
   end
 
   def config_file
@@ -56,13 +63,5 @@ class Config
     @valid = true
   rescue Errno::ENOENT
     @valid = false
-  end
-
-  def yaml_data
-    @yaml_data
-  end
-
-  def use_config_path
-    @use_config_path
   end
 end
