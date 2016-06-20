@@ -24,6 +24,12 @@ class ConfigTest < Minitest::Test
     assert_equal(Pathname.new('tmp/notes'), subject.notes_path)
   end
 
+  def test_notes_path_when_nil
+    config_path = fixture_config_path empty_notes_config_file
+    empty_notes_config = Config.new config_path: config_path
+    assert_equal(Pathname.new('tmp'), empty_notes_config.notes_path)
+  end
+
   def test_valid
     assert subject.valid?
   end
