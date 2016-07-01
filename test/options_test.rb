@@ -23,25 +23,13 @@ class OptionsTest < Minitest::Test
     refute options.continue?
   end
 
-  def test_create_argument
-    ARGV << '-c'
-    ARGV << sample_filename.split('.').first
-
-    options = Options.new
-    options.parse!
-
-    assert options.create_new?
-    assert_equal sample_filename, options.file
-  end
-
   def test_filename_only
     ARGV << sample_filename
     options = Options.new
     options.parse!
 
     assert_equal sample_filename, options.file
-    assert options.generate?
-    assert_nil options.create_new?
+    assert options.continue?
   end
 
   def test_filename_without_extension
@@ -49,7 +37,7 @@ class OptionsTest < Minitest::Test
     options = Options.new
 
     assert_empty capture_output { options.parse! }
-    assert options.generate?
+    assert options.continue?
     assert_equal sample_filename, options.file
   end
 
