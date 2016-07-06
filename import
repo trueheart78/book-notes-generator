@@ -1,0 +1,22 @@
+#!/usr/bin/env ruby
+$LOAD_PATH.unshift('lib')
+ENV['NODE_ENV'] = 'development' unless ENV['NODE_ENV']
+
+require 'config'
+require 'options'
+require 'book'
+require 'notes_generator'
+
+config = Config.new
+unless config.valid?
+  puts "Invalid config"
+  exit 1
+end
+
+options = Options.new
+options.parse!
+
+exit unless options.continue?
+
+require 'import_controller'
+ImportController.new(options.file, config).run

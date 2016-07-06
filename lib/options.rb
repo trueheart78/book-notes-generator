@@ -1,7 +1,7 @@
 require 'optparse'
 
 class Options
-  attr_accessor :create_new, :filename, :continue
+  attr_accessor :filename, :continue
 
   def initialize
     self.continue = true
@@ -12,10 +12,6 @@ class Options
     OptionParser.new do |opts|
       opts.banner = "Usage: generate [options] filename\n"
 
-      opts.on('-c','--create','Creates a new yml file for a book') do
-        self.create_new = true
-      end
-
       opts.on('-h','--help','Displays help') do
         self.continue = false
         puts opts
@@ -25,14 +21,6 @@ class Options
 
       puts opts unless self.continue?
     end.parse!
-  end
-
-  def create_new?
-    create_new
-  end
-
-  def generate?
-    !create_new? && file?
   end
 
   def file?

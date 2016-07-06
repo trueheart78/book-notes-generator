@@ -45,7 +45,7 @@ location defined in the config file.
 You can create the YAML file by running:
 
 ```sh
-./generate -c book-name
+./create book-name
 ```
 
 ### Importing a Book
@@ -53,7 +53,7 @@ You can create the YAML file by running:
 To generate the proper note structure for a new book, run:
 
 ```sh
-./generate book-name
+./import book-name
 ```
 
 And follow the prompts.
@@ -127,7 +127,7 @@ be written out.
 ## Sample Output for Sections
 
 After you save the above as `yaml/sample-book.yml`, and
-run `./generate sample-book`, you should see the following:
+run `./import sample-book`, you should see the following:
 
 ```
 - Directory: an-awesome-book
