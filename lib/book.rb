@@ -146,6 +146,6 @@ class Book
   end
 
   def adjective
-    %w{fantastic grand marvelous terrific tremendous wondrous howling rattling}.sample
+    %w{fantastic grand marvelous terrific tremendous wondrous howling rattling astonishing awe-inspiring awesome impressive fascinating incredible marvelous unbelievable}.sample
   end
 end
