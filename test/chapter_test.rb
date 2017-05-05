@@ -22,10 +22,40 @@ class ChapterTest < Minitest::Test
     assert_equal(mock_chapter.readme, subject.readme_md)
   end
 
-  def test_to_md
+  def test_to_md_without_params
     assert_match(/\[&lt;&lt; Back to the README\]\(README.md\)/, subject.to_md)
     assert_match(/#{mock_chapter.proper_name}/, subject.to_md)
     assert_match(/\*Notes forthcoming\*/, subject.to_md)
+  end
+
+  def test_to_md_with_params
+    @test_subject = subject.to_md previous: previous, upcoming: upcoming
+
+    assert_match(previous_match, @test_subject)
+    assert_match(upcoming_match, @test_subject)
+    assert_match(readme_match, @test_subject)
+    assert_match(/#{mock_chapter.proper_name}/, @test_subject)
+    assert_match(/\*Notes forthcoming\*/, @test_subject)
+  end
+
+  def readme_match
+    /\[README\]\(README.md\)/
+  end
+
+  def previous_match
+    /\[&lt\;&lt\; Chapter 24. X\]\(chapter-24-x.md\)/
+  end
+
+  def upcoming_match
+    /\[Chapter 26. Z &gt\;&gt\;\]\(chapter-26-z.md\)/
+  end
+
+  def previous
+    @previous ||= { name: 'Chapter 24. X', file_name: 'chapter-24-x.md' }
+  end
+
+  def upcoming
+    @upcoming ||= { name: 'Chapter 26. Z', file_name: 'chapter-26-z.md' }
   end
 
   def mock_chapter

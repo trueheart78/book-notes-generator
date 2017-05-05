@@ -20,19 +20,52 @@ class Chapter
     "[#{proper_name}](#{file_name})"
   end
 
-  def to_md
+  def to_md(previous: {}, upcoming: {})
+    navigation = navigation_md previous, upcoming
     @md ||= [
-      '[&lt;&lt; Back to the README](README.md)',
+      navigation,
       '',
       "# #{proper_name}",
       '',
-      '*Notes forthcoming*'
+      '*Notes forthcoming*',
+      '',
+      navigation
     ].join "\n"
   end
 
   private
 
   attr_reader :appendix
+
+  def navigation_md(previous, upcoming)
+    if previous.empty? && upcoming.empty?
+      '[&lt;&lt; Back to the README](README.md)'
+    else
+      [
+        navigation_item_md(previous, :back),
+        navigation_item_md(readme, :center),
+        navigation_item_md(upcoming, :forward),
+      ].join " | "
+    end
+  end
+
+  def readme
+    {
+      name: 'README',
+      file_name: 'README.md'
+    }
+  end
+
+  def navigation_item_md(item, direction = :back)
+    case direction
+    when :back
+      "[&lt;&lt; #{item[:name]}](#{item[:file_name]})"
+    when :forward
+      "[#{item[:name]} &gt;&gt;](#{item[:file_name]})"
+    when :center
+      "[#{item[:name]}](#{item[:file_name]})"
+    end
+  end
 
   def proper_name
     "#{proper_name_prefix} #{num}. #{name}"
