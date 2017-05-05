@@ -60,11 +60,28 @@ class NotesGenerator
   end
 
   def write_chapters
-    book.chapter_list.each do |chapter|
+    book.chapter_list.each_with_index do |chapter, index|
       File.open(File.join(book.directory, chapter.file_name), 'wb') do |file|
-        file.write chapter.to_md
+        file.write chapter.to_md(previous: previous_chapter(index),
+                                 upcoming: upcoming_chapter(index))
       end
     end
+  end
+
+  def previous_chapter(index)
+    return {} if index.zero?
+    {
+      name: book.chapter_list[(index-1)].name,
+      file_name: book.chapter_list[(index-1)].file_name
+    }
+  end
+
+  def upcoming_chapter(index)
+    return {} if index >= (book.chapter_list.size - 1)
+    {
+      name: book.chapter_list[(index+1)].name,
+      file_name: book.chapter_list[(index+1)].file_name
+    }
   end
 
   def download_image
