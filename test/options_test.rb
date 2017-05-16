@@ -28,7 +28,7 @@ class OptionsTest < Minitest::Test
     options = Options.new
     options.parse!
 
-    assert_equal sample_filename, options.file
+    assert_equal sample_filename, options.filename
     assert options.continue?
   end
 
@@ -38,7 +38,7 @@ class OptionsTest < Minitest::Test
 
     assert_empty capture_output { options.parse! }
     assert options.continue?
-    assert_equal sample_filename, options.file
+    assert_equal sample_filename, options.filename
   end
 
   def sample_filename

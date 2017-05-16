@@ -5,6 +5,7 @@ ENV['CONFIG_PATH'] = 'test/fixtures/config.test'
 
 require 'fileutils'
 require 'minitest/autorun'
+require 'byebug'
 require 'file_system_test_mixin'
 require 'config'
 require 'options'
