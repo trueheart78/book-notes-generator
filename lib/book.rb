@@ -47,7 +47,7 @@ class Book
 
   def to_md
     @md ||= [
-      "[&lt;&lt; Back to project home](#{project_readme_path})",
+      "[🔙 🏡](#{project_readme_path})",
       '',
       "# #{title}",
       '',
@@ -89,9 +89,11 @@ class Book
   def load_sections
     @sections = []
     chapter_offset = 0
+    section_offset = 0
     yaml_data[:sections].each do |s|
-      @sections << Section.new(s[:name], s[:chapters], offset: chapter_offset)
+      @sections << Section.new(s[:name], s[:chapters], chapter_offset: chapter_offset, section_offset: section_offset)
       chapter_offset += s[:chapters].size
+      section_offset += 1
     end
     @sections
   end

@@ -9,7 +9,7 @@ class SectionTest < Minitest::Test
   end
 
   def offset_subject
-    @offset_subject ||= Section.new valid_name, chapter_list_offset, offset: offset
+    @offset_subject ||= Section.new valid_name, chapter_list_offset, chapter_offset: chapter_offset, section_offset: section_offset
   end
 
   def test_name
@@ -34,15 +34,15 @@ class SectionTest < Minitest::Test
 
   def test_to_md
     markdown = subject.to_md
-    assert_match(/- \*\*#{valid_name}\*\*/, markdown)
+    assert_match(/01\. \*\*#{valid_name}\*\*/, markdown)
     chapter_list.each do |chapter_name|
-      assert_match(/- \[Chapter \d\. #{chapter_name}\]/, markdown)
+      assert_match(/\s\s- \[Chapter \d\. #{chapter_name}\]/, markdown)
     end
   end
 
   def test_to_md_offset
     markdown = offset_subject.to_md
-    assert_match(/- \*\*#{valid_name}\*\*/, markdown)
+    assert_match(/03\. \*\*#{valid_name}\*\*/, markdown)
     chapter_list_offset.each do |chapter_name|
       assert_match(/- \[Chapter \d+\. #{chapter_name}\]/, markdown)
     end
@@ -51,7 +51,8 @@ class SectionTest < Minitest::Test
   def test_to_md_nameless
     section = Section.create_from_chapters(chapter_list)
     markdown = section.to_md
-    refute_match(/- \*\*\w+\*\*/, markdown)
+
+    refute_match(/01\. \*\*\w+\*\*/, markdown)
     chapter_list.each do |chapter_name|
       assert_match(/- \[Chapter \d+\. #{chapter_name}\]/, markdown)
     end
@@ -63,7 +64,7 @@ class SectionTest < Minitest::Test
 
   def test_overview
     overview = subject.overview
-    assert_match(/\s\s#{valid_name}/, overview)
+    assert_match(/\s\s01\. #{valid_name}/, overview)
     chapter_list.each do |chapter_name|
       assert_match(/\s\s\s\s\d+\. #{chapter_name}\s-\s.+\.md/, overview)
     end
@@ -72,7 +73,7 @@ class SectionTest < Minitest::Test
   def test_overview_nameless
     section = Section.create_from_chapters(chapter_list)
     overview = section.overview
-    refute_match(/\s\s#{valid_name}/, overview)
+    refute_match(/\s\s1\. #{valid_name}/, overview)
     chapter_list.each do |chapter_name|
       assert_match(/\s\s\d+\. #{chapter_name}\s-\s.+\.md/, overview)
     end
@@ -86,8 +87,12 @@ class SectionTest < Minitest::Test
     nil
   end
 
-  def offset
+  def chapter_offset
     5
+  end
+
+  def section_offset
+    2
   end
 
   def chapter_list
@@ -95,6 +100,6 @@ class SectionTest < Minitest::Test
   end
 
   def chapter_list_offset
-    1.upto(offset).each.map { |n| "#{(n+offset)} Great Words" }
+    1.upto(chapter_offset).each.map { |n| "#{(n+chapter_offset)} Great Words" }
   end
 end

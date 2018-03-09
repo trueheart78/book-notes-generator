@@ -22,10 +22,57 @@ class ChapterTest < Minitest::Test
     assert_equal(mock_chapter.readme, subject.readme_md)
   end
 
-  def test_to_md
-    assert_match(/\[&lt;&lt; Back to the README\]\(README.md\)/, subject.to_md)
+  def test_to_md_without_params
+    assert_match(matches[:readme], subject.to_md)
     assert_match(/#{mock_chapter.proper_name}/, subject.to_md)
-    assert_match(/\*Notes forthcoming\*/, subject.to_md)
+    assert_match(matches[:notes], subject.to_md)
+    assert_match(matches[:readme_link], subject.to_md)
+  end
+
+  def test_to_md_with_params
+    @test_subject = subject.to_md previous: previous, upcoming: upcoming
+    matches.each do |_, match|
+      assert_match(match, @test_subject)
+    end
+    assert_match(/#{mock_chapter.proper_name}/, @test_subject)
+  end
+
+  def test_to_md_without_previous
+    @test_subject = subject.to_md upcoming: upcoming
+    matches.each do |key, match|
+      assert_match(match, @test_subject) unless key.to_s.start_with? 'previous'
+      refute_match(match, @test_subject) if key.to_s.start_with? 'previous'
+    end
+    assert_match(/#{mock_chapter.proper_name}/, @test_subject)
+  end
+
+  def test_to_md_without_upcoming
+    @test_subject = subject.to_md previous: previous
+    matches.each do |key, match|
+      assert_match(match, @test_subject) unless key.to_s.start_with? 'upcoming'
+      refute_match(match, @test_subject) if key.to_s.start_with? 'upcoming'
+    end
+    assert_match(/#{mock_chapter.proper_name}/, @test_subject)
+  end
+
+  def matches
+    {
+      notes: /_Notes_/,
+      readme: /\[🏡\]\[readme\]/,
+      previous: /\[🔙 Chapter 24. X\]\[previous-chapter\]/,
+      upcoming: /\[Chapter 26. Z 🔜\]\[upcoming-chapter\]/,
+      readme_link: /\[readme\]: README\.md/,
+      previous_link: /\[previous-chapter\]: chapter-24-x\.md/,
+      upcoming_link: /\[upcoming-chapter\]: chapter-26-z\.md/
+    }
+  end
+
+  def previous
+    @previous ||= { name: 'Chapter 24. X', file_name: 'chapter-24-x.md' }
+  end
+
+  def upcoming
+    @upcoming ||= { name: 'Chapter 26. Z', file_name: 'chapter-26-z.md' }
   end
 
   def mock_chapter

@@ -3,6 +3,8 @@ $LOAD_PATH.unshift(File.dirname(__FILE__))
 ENV['NODE_ENV'] = 'test'
 ENV['CONFIG_PATH'] = 'test/fixtures/config.test'
 
+require 'byebug'
+require 'pry'
 require 'fileutils'
 require 'minitest/autorun'
 require 'byebug'
