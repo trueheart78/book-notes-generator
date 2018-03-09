@@ -41,11 +41,11 @@ class Chapter
 
   def navigation_md(previous, upcoming)
     if previous.empty? && upcoming.empty?
-      '[&lt;&lt; Back to the README][readme]'
+      '[🏡][readme]'
     else
       [].tap do |array|
         if previous.empty?
-          array << '[&lt;&lt; Back to the README][readme]'
+          array << '[🏡][readme]'
           array << navigation_item_md(upcoming, :upcoming)
         elsif upcoming.empty?
           array << navigation_item_md(previous, :previous)
@@ -55,13 +55,13 @@ class Chapter
           array << navigation_item_md(readme, :readme)
           array << navigation_item_md(upcoming, :upcoming)
         end
-      end.join ' | '
+      end.join('&nbsp;'*7)
     end
   end
 
   def readme
     {
-      name: 'README',
+      name: '🏡',
       file_name: 'README.md'
     }
   end
@@ -69,9 +69,9 @@ class Chapter
   def navigation_item_md(item, direction = :previous)
     case direction
     when :previous
-      "[&lt;&lt; #{item[:name]}][previous-chapter]"
+      "[⬅ #{item[:name]}][previous-chapter]"
     when :upcoming
-      "[#{item[:name]} &gt;&gt;][upcoming-chapter]"
+      "[#{item[:name]} ➡][upcoming-chapter]"
     when :readme
       "[#{item[:name]}][readme]"
     end
