@@ -69,9 +69,9 @@ class Chapter
   def navigation_item_md(item, direction = :previous)
     case direction
     when :previous
-      "[⬅ #{item[:name]}][previous-chapter]"
+      "[🔙 #{item[:name]}][previous-chapter]"
     when :upcoming
-      "[#{item[:name]} ➡][upcoming-chapter]"
+      "[#{item[:name]} 🔜][upcoming-chapter]"
     when :readme
       "[#{item[:name]}][readme]"
     end
