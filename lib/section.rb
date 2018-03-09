@@ -47,8 +47,12 @@ class Section
   end
 
   def chapter_pad
-    return '    ' if name?
-    '  '
+    return indent size: 3 if name?
+    indent
+  end
+
+  def indent(size: 1)
+    '  ' * size
   end
 
   def name_md
@@ -57,7 +61,7 @@ class Section
   end
 
   def name_overview
-    return ["  #{name}"] if name?
+    return ["#{indent}#{name}"] if name?
     []
   end
 

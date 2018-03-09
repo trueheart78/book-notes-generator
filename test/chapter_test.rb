@@ -41,6 +41,7 @@ class ChapterTest < Minitest::Test
     @test_subject = subject.to_md upcoming: upcoming
     matches.each do |key, match|
       assert_match(match, @test_subject) unless key.to_s.start_with? 'previous'
+      refute_match(match, @test_subject) if key.to_s.start_with? 'previous'
     end
     assert_match(/#{mock_chapter.proper_name}/, @test_subject)
   end
@@ -49,6 +50,7 @@ class ChapterTest < Minitest::Test
     @test_subject = subject.to_md previous: previous
     matches.each do |key, match|
       assert_match(match, @test_subject) unless key.to_s.start_with? 'upcoming'
+      refute_match(match, @test_subject) if key.to_s.start_with? 'upcoming'
     end
     assert_match(/#{mock_chapter.proper_name}/, @test_subject)
   end
