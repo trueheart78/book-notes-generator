@@ -51,8 +51,8 @@ class Chapter
           array << navigation_item_md(previous, :previous)
           array << navigation_item_md(readme, :readme)
         else
-          array << navigation_item_md(readme, :readme)
           array << navigation_item_md(previous, :previous)
+          array << navigation_item_md(readme, :readme)
           array << navigation_item_md(upcoming, :upcoming)
         end
       end.join ' | '
