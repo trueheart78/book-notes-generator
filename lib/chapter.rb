@@ -46,11 +46,15 @@ class Chapter
       [].tap do |array|
         if previous.empty?
           array << '[&lt;&lt; Back to the README][readme]'
+          array << navigation_item_md(upcoming, :upcoming)
+        elsif upcoming.empty?
+          array << navigation_item_md(previous, :previous)
+          array << navigation_item_md(readme, :readme)
         else
           array << navigation_item_md(readme, :readme)
           array << navigation_item_md(previous, :previous)
+          array << navigation_item_md(upcoming, :upcoming)
         end
-        array << navigation_item_md(upcoming, :upcoming) unless upcoming.empty?
       end.join ' | '
     end
   end
