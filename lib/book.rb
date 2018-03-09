@@ -47,7 +47,7 @@ class Book
 
   def to_md
     @md ||= [
-      "[&lt;&lt; Back to project home](#{project_readme_path})",
+      "[🔙 🏡](#{project_readme_path})",
       '',
       "# #{title}",
       '',

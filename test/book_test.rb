@@ -42,7 +42,7 @@ class BookTest < Minitest::Test
   end
 
   def test_to_md
-    assert_match(/\[&lt;&lt; Back to project home\]\(\.\.\/README.md\)/, subject.to_md)
+    assert_match(/\[🔙 🏡\]\(\.\.\/README.md\)/, subject.to_md)
     assert_match(/#{subject.title}/, subject.to_md)
     assert_match(/#{subject.purchase}/, subject.to_md)
     assert_match(/#{subject.author}/, subject.to_md)
