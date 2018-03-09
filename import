@@ -19,4 +19,4 @@ options.parse!
 exit unless options.continue?
 
 require 'import_controller'
-ImportController.new(options.file, config).run
+ImportController.new(options.filename, config).run

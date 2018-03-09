@@ -1,14 +1,16 @@
 require 'optparse'
 
 class Options
-  attr_accessor :filename, :continue
+  attr_accessor :continue
+  attr_reader :filename
 
   def initialize
     self.continue = true
+    @filename = ''
   end
 
   def parse!
-    self.filename = ARGV.last
+    self.filename = ARGV.last.downcase unless ARGV.last.nil?
     OptionParser.new do |opts|
       opts.banner = "Usage: generate [options] filename\n"
 
@@ -23,13 +25,18 @@ class Options
     end.parse!
   end
 
-  def file?
-    !self.filename.nil?
+  def filename=(name)
+    return unless name
+    if File.extname(name) == '.yml'
+      @filename = name
+    else
+      @filename = name.delete('!*&#?:;').tr('_ ','-')
+      @filename << '.yml'
+    end
   end
 
-  def file
-    return "#{filename}.yml" unless filename.downcase[-4..-1] == '.yml'
-    filename
+  def file?
+    !filename.nil?
   end
 
   def continue?
