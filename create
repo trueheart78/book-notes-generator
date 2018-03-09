@@ -19,4 +19,4 @@ options.parse!
 exit unless options.continue?
 
 require 'yaml_generator'
-YamlGenerator.new(options.file, config).run
+YamlGenerator.new(options.filename, config).run

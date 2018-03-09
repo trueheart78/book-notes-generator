@@ -17,6 +17,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  byebug
   minitest (~> 5.9)
   pry-byebug
   rake (~> 11.1, >= 11.1.2)
