@@ -28,7 +28,7 @@ class Chapter
       '',
       "# #{proper_name}",
       '',
-      '*Notes forthcoming*',
+      '_Notes_',
       '',
       navigation,
       '',
@@ -43,11 +43,15 @@ class Chapter
     if previous.empty? && upcoming.empty?
       '[&lt;&lt; Back to the README][readme]'
     else
-      [
-        navigation_item_md(readme, :readme),
-        navigation_item_md(previous, :previous),
-        navigation_item_md(upcoming, :upcoming),
-      ].join " | "
+      [].tap do |array|
+        if previous.empty?
+          array << '[&lt;&lt; Back to the README][readme]'
+        else
+          array << navigation_item_md(readme, :readme)
+          array << navigation_item_md(previous, :previous)
+        end
+        array << navigation_item_md(upcoming, :upcoming) unless upcoming.empty?
+      end.join ' | '
     end
   end
 

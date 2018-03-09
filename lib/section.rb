@@ -47,7 +47,7 @@ class Section
   end
 
   def chapter_pad
-    return indent size: 3 if name?
+    return indent size: 2 if name?
     indent
   end
 
@@ -56,7 +56,7 @@ class Section
   end
 
   def name_md
-    return ["- **#{name}**"] if name?
+    return ["1. **#{name}**"] if name?
     []
   end
 
@@ -70,7 +70,7 @@ class Section
   end
 
   def chapter_md
-    chapters.map(&:readme_md).map { |chapter| "- #{chapter}" }
+    chapters.map(&:readme_md).map { |chapter| "#{indent}- #{chapter}" }
   end
 
   def chapter_offset(num)

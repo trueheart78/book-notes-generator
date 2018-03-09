@@ -23,7 +23,7 @@ class ChapterTest < Minitest::Test
   end
 
   def test_to_md_without_params
-    assert_match(/\[&lt;&lt; Back to the README\]\[readme\]/, subject.to_md)
+    assert_match(matches[:readme], subject.to_md)
     assert_match(/#{mock_chapter.proper_name}/, subject.to_md)
     assert_match(matches[:notes], subject.to_md)
     assert_match(matches[:readme_link], subject.to_md)
@@ -57,8 +57,8 @@ class ChapterTest < Minitest::Test
 
   def matches
     {
-      notes: /\*Notes forthcoming\*/,
-      readme: /\[README\]\[readme\]/,
+      notes: /_Notes_/,
+      readme: /(&lt\;&lt\; Back to the |\[)README\]\[readme\]/,
       previous: /\[&lt\;&lt\; Chapter 24. X\]\[previous-chapter\]/,
       upcoming: /\[Chapter 26. Z &gt\;&gt\;\]\[upcoming-chapter\]/,
       readme_link: /\[readme\]: README\.md/,
