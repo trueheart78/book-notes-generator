@@ -3,10 +3,11 @@ require 'chapter'
 class Section
   attr_reader :name
 
-  def initialize(name, chapter_list, offset: 0)
+  def initialize(name, chapter_list, chapter_offset: 0, section_offset: 0)
     @name = name
     @chapter_list = chapter_list
-    @offset = offset
+    @chapter_offset = chapter_offset
+    @section_offset = section_offset
   end
 
   def name?
@@ -47,7 +48,7 @@ class Section
   end
 
   def chapter_pad
-    return indent size: 2 if name?
+    return indent size: 3 if name?
     indent
   end
 
@@ -56,12 +57,12 @@ class Section
   end
 
   def name_md
-    return ["1. **#{name}**"] if name?
+    return ["#{section_offset}. **#{name}**"] if name?
     []
   end
 
   def name_overview
-    return ["#{indent}#{name}"] if name?
+    return ["#{indent}#{section_offset}. #{name}"] if name?
     []
   end
 
@@ -70,10 +71,15 @@ class Section
   end
 
   def chapter_md
-    chapters.map(&:readme_md).map { |chapter| "#{indent}- #{chapter}" }
+    chapters.map(&:readme_md).map { |chapter| "#{indent size: 2}- #{chapter}" }
   end
 
   def chapter_offset(num)
-    num + @offset
+    num + @chapter_offset
+  end
+
+  def section_offset
+    return "0#{@section_offset + 1}" if @section_offset < 9
+    @section_offset.to_s
   end
 end
