@@ -58,9 +58,9 @@ class ChapterTest < Minitest::Test
   def matches
     {
       notes: /_Notes_/,
-      readme: /(&lt\;&lt\; Back to the |\[)README\]\[readme\]/,
-      previous: /\[&lt\;&lt\; Chapter 24. X\]\[previous-chapter\]/,
-      upcoming: /\[Chapter 26. Z &gt\;&gt\;\]\[upcoming-chapter\]/,
+      readme: /\[🏡\]\[readme\]/,
+      previous: /\[⬅ Chapter 24. X\]\[previous-chapter\]/,
+      upcoming: /\[Chapter 26. Z ➡\]\[upcoming-chapter\]/,
       readme_link: /\[readme\]: README\.md/,
       previous_link: /\[previous-chapter\]: chapter-24-x\.md/,
       upcoming_link: /\[upcoming-chapter\]: chapter-26-z\.md/

@@ -23,7 +23,7 @@ class ChapterAsAppendixTest < Minitest::Test
   end
 
   def test_to_md
-    assert_match(/\[&lt;&lt; Back to the README\]\[readme\]/, subject.to_md)
+    assert_match(/\[🏡\]\[readme\]/, subject.to_md)
     assert_match(/#{mock_chapter.proper_name}/, subject.to_md)
     assert_match(/_Notes_/, subject.to_md)
   end
