@@ -23,31 +23,46 @@ class ChapterTest < Minitest::Test
   end
 
   def test_to_md_without_params
-    assert_match(/\[&lt;&lt; Back to the README\]\(README.md\)/, subject.to_md)
+    assert_match(/\[&lt;&lt; Back to the README\]\[readme\]/, subject.to_md)
     assert_match(/#{mock_chapter.proper_name}/, subject.to_md)
-    assert_match(/\*Notes forthcoming\*/, subject.to_md)
+    assert_match(matches[:notes], subject.to_md)
+    assert_match(matches[:readme_link], subject.to_md)
   end
 
   def test_to_md_with_params
     @test_subject = subject.to_md previous: previous, upcoming: upcoming
-
-    assert_match(previous_match, @test_subject)
-    assert_match(upcoming_match, @test_subject)
-    assert_match(readme_match, @test_subject)
+    matches.each do |_, match|
+      assert_match(match, @test_subject)
+    end
     assert_match(/#{mock_chapter.proper_name}/, @test_subject)
-    assert_match(/\*Notes forthcoming\*/, @test_subject)
   end
 
-  def readme_match
-    /\[README\]\(README.md\)/
+  def test_to_md_without_previous
+    @test_subject = subject.to_md upcoming: upcoming
+    matches.each do |key, match|
+      assert_match(match, @test_subject) unless key.to_s.start_with? 'previous'
+    end
+    assert_match(/#{mock_chapter.proper_name}/, @test_subject)
   end
 
-  def previous_match
-    /\[&lt\;&lt\; Chapter 24. X\]\(chapter-24-x.md\)/
+  def test_to_md_without_upcoming
+    @test_subject = subject.to_md previous: previous
+    matches.each do |key, match|
+      assert_match(match, @test_subject) unless key.to_s.start_with? 'upcoming'
+    end
+    assert_match(/#{mock_chapter.proper_name}/, @test_subject)
   end
 
-  def upcoming_match
-    /\[Chapter 26. Z &gt\;&gt\;\]\(chapter-26-z.md\)/
+  def matches
+    {
+      notes: /\*Notes forthcoming\*/,
+      readme: /\[README\]\[readme\]/,
+      previous: /\[&lt\;&lt\; Chapter 24. X\]\[previous-chapter\]/,
+      upcoming: /\[Chapter 26. Z &gt\;&gt\;\]\[upcoming-chapter\]/,
+      readme_link: /\[readme\]: README\.md/,
+      previous_link: /\[previous-chapter\]: chapter-24-x\.md/,
+      upcoming_link: /\[upcoming-chapter\]: chapter-26-z\.md/
+    }
   end
 
   def previous

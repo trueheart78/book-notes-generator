@@ -22,6 +22,7 @@ class Chapter
 
   def to_md(previous: {}, upcoming: {})
     navigation = navigation_md previous, upcoming
+    links = links_md previous, upcoming
     @md ||= [
       navigation,
       '',
@@ -29,8 +30,9 @@ class Chapter
       '',
       '*Notes forthcoming*',
       '',
-      navigation
-    ].join "\n"
+      navigation,
+      '',
+    ].concat(links).join "\n"
   end
 
   private
@@ -39,12 +41,12 @@ class Chapter
 
   def navigation_md(previous, upcoming)
     if previous.empty? && upcoming.empty?
-      '[&lt;&lt; Back to the README](README.md)'
+      '[&lt;&lt; Back to the README][readme]'
     else
       [
-        navigation_item_md(previous, :back),
-        navigation_item_md(readme, :center),
-        navigation_item_md(upcoming, :forward),
+        navigation_item_md(readme, :readme),
+        navigation_item_md(previous, :previous),
+        navigation_item_md(upcoming, :upcoming),
       ].join " | "
     end
   end
@@ -56,15 +58,28 @@ class Chapter
     }
   end
 
-  def navigation_item_md(item, direction = :back)
+  def navigation_item_md(item, direction = :previous)
     case direction
-    when :back
-      "[&lt;&lt; #{item[:name]}](#{item[:file_name]})"
-    when :forward
-      "[#{item[:name]} &gt;&gt;](#{item[:file_name]})"
-    when :center
-      "[#{item[:name]}](#{item[:file_name]})"
+    when :previous
+      "[&lt;&lt; #{item[:name]}][previous-chapter]"
+    when :upcoming
+      "[#{item[:name]} &gt;&gt;][upcoming-chapter]"
+    when :readme
+      "[#{item[:name]}][readme]"
     end
+  end
+
+  def links_md(previous, upcoming)
+    [].tap do |array|
+      array << link_item_md(readme, :readme)
+      array << link_item_md(previous, :previous) unless previous.empty?
+      array << link_item_md(upcoming, :upcoming) unless upcoming.empty?
+    end
+  end
+
+  def link_item_md(item, direction = :previous)
+    return '[readme]: README.md' if direction == :readme
+    "[#{direction}-chapter]: #{item[:file_name]}"
   end
 
   def proper_name
