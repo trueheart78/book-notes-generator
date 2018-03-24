@@ -28,7 +28,7 @@ class NotesGenerator
       '',
       'Please add the following to the root README.md file:',
       '',
-      "1. [#{book.title}](#{relative_readme_path})",
+      "1. [#{book.title} (#{book.year})](#{relative_readme_path})",
       '',
       spacer,
       '',

@@ -34,6 +34,7 @@ class BookTest < Minitest::Test
     assert_match(/- Directory: #{subject.relative_directory}/, subject.overview)
     assert_match(/- Path: #{subject.directory}/, subject.overview)
     assert_match(/- Title: #{subject.title}/, subject.overview)
+    assert_match(/- Year: #{subject.year}/, subject.overview)
     assert_match(/- Purchase: #{subject.purchase}/, subject.overview)
     assert_match(/- Author: #{subject.author}/, subject.overview)
     assert_match(/- Homepage: #{subject.homepage}/, subject.overview)
@@ -43,7 +44,7 @@ class BookTest < Minitest::Test
 
   def test_to_md
     assert_match(/\[🔙 🏡\]\(\.\.\/README.md\)/, subject.to_md)
-    assert_match(/#{subject.title}/, subject.to_md)
+    assert_match(/#{subject.title} \(#{subject.year}\)/, subject.to_md)
     assert_match(/#{subject.purchase}/, subject.to_md)
     assert_match(/#{subject.author}/, subject.to_md)
     assert_match(/#{subject.homepage}/, subject.to_md)
@@ -51,7 +52,7 @@ class BookTest < Minitest::Test
   end
 
   def test_to_s
-    assert_equal "'An Awesome Book' by That One Girl :: 4 chapters", subject.to_s
+    assert_equal "'An Awesome Book (2018)' by That One Girl :: 4 chapters", subject.to_s
   end
 
   def test_public_yaml_interface

@@ -36,6 +36,7 @@ class Book
       "- Path: #{directory}",
       "  - To Parent: #{project_readme_path}",
       "- Title: #{title}",
+      "- Year: #{year}",
       "- Purchase: #{purchase}",
       "- Author: #{author}",
       "- Homepage: #{homepage}",
@@ -49,7 +50,7 @@ class Book
     @md ||= [
       "[🔙 🏡](#{project_readme_path})",
       '',
-      "# #{title}",
+      "# #{title} (#{year})",
       '',
       "By the #{adjective} [#{author}](#{homepage})",
       '',
@@ -63,7 +64,7 @@ class Book
   end
 
   def to_s
-    "'#{title}' by #{author} :: #{chapter_length} chapters"
+    "'#{title} (#{year})' by #{author} :: #{chapter_length} chapters"
   end
 
   def method_missing(method_name, *arguments, &block)
@@ -144,7 +145,7 @@ class Book
   end
 
   def attr_list
-    [:title, :purchase, :author, :homepage, :image, :image_ext, :sections]
+    [:title, :year, :purchase, :author, :homepage, :image, :image_ext, :sections]
   end
 
   def adjective

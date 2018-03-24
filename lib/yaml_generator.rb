@@ -25,6 +25,7 @@ class YamlGenerator < FileSystem
     <<~YAML
     ---
     :title:
+    :released:
     :purchase:
     :author:
     :homepage:
