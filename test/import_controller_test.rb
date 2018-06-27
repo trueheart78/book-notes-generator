@@ -7,9 +7,10 @@ class ImportControllerTest < Minitest::Test
   include FileSystemTestMixin
 
 
-  def untested
-    p test_options.file
-    p subject.yaml_file_path
+  def test_untested
+    # p test_options.filename
+    # p subject.yaml_file_path
+    assert true
   end
 
 

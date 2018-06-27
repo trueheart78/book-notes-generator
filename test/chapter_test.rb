@@ -24,7 +24,7 @@ class ChapterTest < Minitest::Test
 
   def test_to_md_without_params
     assert_match(matches[:readme], subject.to_md)
-    assert_match(/#{mock_chapter.proper_name}/, subject.to_md)
+    assert(subject.to_md.include?(mock_chapter.proper_name))
     assert_match(matches[:notes], subject.to_md)
     assert_match(matches[:readme_link], subject.to_md)
   end
@@ -34,7 +34,7 @@ class ChapterTest < Minitest::Test
     matches.each do |_, match|
       assert_match(match, @test_subject)
     end
-    assert_match(/#{mock_chapter.proper_name}/, @test_subject)
+    assert(@test_subject.include?(mock_chapter.proper_name))
   end
 
   def test_to_md_without_previous
@@ -43,7 +43,7 @@ class ChapterTest < Minitest::Test
       assert_match(match, @test_subject) unless key.to_s.start_with? 'previous'
       refute_match(match, @test_subject) if key.to_s.start_with? 'previous'
     end
-    assert_match(/#{mock_chapter.proper_name}/, @test_subject)
+    assert(@test_subject.include?(mock_chapter.proper_name))
   end
 
   def test_to_md_without_upcoming
@@ -52,7 +52,7 @@ class ChapterTest < Minitest::Test
       assert_match(match, @test_subject) unless key.to_s.start_with? 'upcoming'
       refute_match(match, @test_subject) if key.to_s.start_with? 'upcoming'
     end
-    assert_match(/#{mock_chapter.proper_name}/, @test_subject)
+    assert(@test_subject.include?(mock_chapter.proper_name))
   end
 
   def matches
@@ -77,8 +77,8 @@ class ChapterTest < Minitest::Test
 
   def mock_chapter
     @mock_chapter ||= OpenStruct.new.tap do |c|
-      c.name = 'The Chapter of Nine'
-      c.name_as_file = 'the-chapter-of-nine'
+      c.name = 'The Chapter of Nine (Plus)'
+      c.name_as_file = 'the-chapter-of-nine-plus'
       c.num = 8
       c.num_str = '09'
       c.file_name = "ch#{c.num_str}-#{c.name_as_file}.md"

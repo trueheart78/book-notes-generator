@@ -79,6 +79,6 @@ class BookTest < Minitest::Test
   end
 
   def yaml_fields
-    [:title, :purchase, :author, :homepage, :image, :image_ext, :sections]
+    [:title, :year, :purchase, :author, :homepage, :image, :image_ext, :sections]
   end
 end

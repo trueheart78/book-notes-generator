@@ -120,6 +120,8 @@ class Chapter
       gsub(/\s\s/,' ').
       gsub(/!=/,'is not').
       downcase.
-      gsub(/[^0-9a-z.\-]/, '-')
+      gsub(/[^0-9a-z.\-]/, '-').
+      chomp('-').
+      gsub(/--/,'-')
   end
 end
