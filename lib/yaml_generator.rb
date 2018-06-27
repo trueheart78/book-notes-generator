@@ -1,10 +1,13 @@
 require_relative 'file_system'
 
 class YamlGenerator < FileSystem
-
   def run
     validate
     create if valid?
+  end
+
+  def to_s
+    content
   end
 
   private
@@ -25,7 +28,7 @@ class YamlGenerator < FileSystem
     <<~YAML
     ---
     :title:
-    :released:
+    :year:
     :purchase:
     :author:
     :homepage:

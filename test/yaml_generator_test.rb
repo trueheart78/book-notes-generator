@@ -25,6 +25,10 @@ class YamlGeneratorTest < Minitest::Test
     assert_match(/Error: File exists \(#{sample_file_path}\)/, error_string)
   end
 
+  def test_content
+    assert_equal(expected_content, subject.to_s)
+  end
+
   def teardown
     destroy_temp_dir
   end
@@ -39,5 +43,28 @@ class YamlGeneratorTest < Minitest::Test
 
   def sample_file_path
     File.join test_config.yaml_path, sample_filename
+  end
+
+  def expected_content
+    <<~YAML
+    ---
+    :title:
+    :year:
+    :purchase:
+    :author:
+    :homepage:
+    :image:
+    :image_ext:
+
+    :sections:
+      -
+        :name:
+        :chapters:
+        - chapter
+      -
+        :name: Section 1
+        :chapters:
+        - chapter
+    YAML
   end
 end
