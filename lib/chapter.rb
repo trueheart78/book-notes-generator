@@ -41,6 +41,7 @@ class Chapter
 
   attr_reader :appendix
 
+  # rubocop:disable Metrics/MethodLength
   def navigation_md(previous, upcoming)
     if previous.empty? && upcoming.empty?
       '[🏡][readme]'
@@ -60,6 +61,7 @@ class Chapter
       end.join('&nbsp;' * 7)
     end
   end
+  # rubocop:enable Metrics/MethodLength
 
   def readme
     {

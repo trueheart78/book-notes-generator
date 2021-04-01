@@ -32,6 +32,7 @@ class Book
     @image ||= Image.new yaml_data[:image], yaml_data[:image_ext]
   end
 
+  # rubocop:disable Metrics/MethodLength
   def overview
     [
       "- Directory: #{relative_directory}",
@@ -47,7 +48,9 @@ class Book
       "- Chapters: #{chapter_length}"
     ].concat(section_overview).join "\n"
   end
+  # rubocop:enable Metrics/MethodLength
 
+  # rubocop:disable Metrics/MethodLength
   def to_md
     @md ||= [
       "[🔙 🏡](#{project_readme_path})",
@@ -64,6 +67,7 @@ class Book
       ''
     ].concat(section_md).concat(image_md).join "\n"
   end
+  # rubocop:enable Metrics/MethodLength
 
   def to_s
     "'#{title} (#{year})' by #{author} :: #{chapter_length} chapters"

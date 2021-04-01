@@ -32,6 +32,8 @@ GEM
       parser (>= 2.7.1.5)
     rubocop-minitest (0.11.1)
       rubocop (>= 0.90, < 2.0)
+    rubocop-rake (0.5.1)
+      rubocop
     ruby-progressbar (1.11.0)
     unicode-display_width (2.0.0)
 
@@ -44,6 +46,7 @@ DEPENDENCIES
   rake (>= 11.1.2)
   rubocop
   rubocop-minitest
+  rubocop-rake
 
 RUBY VERSION
    ruby 2.7.2p137

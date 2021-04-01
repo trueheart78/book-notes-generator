@@ -1,4 +1,8 @@
-require: rubocop-minitest
+inherit_from: .rubocop_todo.yml
+
+require:
+  - rubocop-minitest
+  - rubocop-rake
 
 AllCops:
   TargetRubyVersion: 2.7
@@ -8,6 +12,9 @@ AllCops:
   Exclude:
     - vendor/**/*
     - .bundle/**/*
+Style/FrozenStringLiteralComment:
+  Exclude:
+    - test/**/*
 Style/Documentation:
   Enabled: false
 Style/RedundantFetchBlock:
