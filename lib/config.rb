@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'yaml'
 require 'pathname'
 
@@ -24,7 +26,7 @@ class Config
     # if the notes dir is nil, then we are only a single jump away
     # if the notes path is not nil, then we are n+1 jumps away
     @relative_path = Pathname.new '..'
-    @relative_path.join(base_path.relative_path_from notes_path) if notes_directory?
+    @relative_path.join(base_path.relative_path_from(notes_path)) if notes_directory?
     @relative_path
   end
 
@@ -47,6 +49,7 @@ class Config
 
   def generate_path(config_key)
     return base_path.join(yaml_data[config_key]) if yaml_data[config_key]
+
     base_path
   end
 
@@ -55,6 +58,7 @@ class Config
     return ENV['CONFIG_PATH'] if ENV['CONFIG_PATH']
     return 'config.default' unless ENV['NODE_ENV']
     return 'config.local' if local_supported?
+
     "config.#{ENV['NODE_ENV'].downcase}"
   end
 

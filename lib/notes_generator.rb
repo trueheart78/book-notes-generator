@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'fileutils'
 
 class NotesGenerator
@@ -41,7 +43,7 @@ class NotesGenerator
   end
 
   def create_directory
-    FileUtils::mkdir book.directory
+    FileUtils.mkdir book.directory
   end
 
   def write_readme
@@ -70,24 +72,27 @@ class NotesGenerator
 
   def previous_chapter(index)
     return {} if index.zero?
+
     {
-      name: book.chapter_list[(index-1)].name,
-      file_name: book.chapter_list[(index-1)].file_name
+      name: book.chapter_list[(index - 1)].name,
+      file_name: book.chapter_list[(index - 1)].file_name
     }
   end
 
   def upcoming_chapter(index)
     return {} if index >= (book.chapter_list.size - 1)
+
     {
-      name: book.chapter_list[(index+1)].name,
-      file_name: book.chapter_list[(index+1)].file_name
+      name: book.chapter_list[(index + 1)].name,
+      file_name: book.chapter_list[(index + 1)].file_name
     }
   end
 
   def download_image
     return @image_saved if @image_saved
-    output_path = File.join "#{book.directory}", "#{image.file_name}"
-    @image_saved = system 'wget', '-q', '-O', output_path, "#{image.url}"
+
+    output_path = File.join book.directory.to_s, image.file_name.to_s
+    @image_saved = system 'wget', '-q', '-O', output_path, image.url.to_s
   end
 
   def image_saved?

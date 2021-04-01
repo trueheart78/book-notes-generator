@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Image
   attr_reader :url
 
@@ -20,6 +22,7 @@ class Image
 
   def to_md
     return "![book cover](#{file_name})" if valid?
+
     ''
   end
 end

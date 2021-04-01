@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'chapter'
 
 class Section
@@ -29,7 +31,7 @@ class Section
   end
 
   def self.create_from_chapters(chapters)
-    self.new(nil, chapters)
+    new(nil, chapters)
   end
 
   def overview
@@ -44,11 +46,13 @@ class Section
 
   def appendices?
     return false unless name
+
     name.downcase.include?('appendix') || name.downcase.include?('appendices')
   end
 
   def chapter_pad
     return indent size: 3 if name?
+
     indent
   end
 
@@ -58,11 +62,13 @@ class Section
 
   def name_md
     return ["#{section_offset}. **#{name}**"] if name?
+
     []
   end
 
   def name_overview
     return ["#{indent}#{section_offset}. #{name}"] if name?
+
     []
   end
 
@@ -80,6 +86,7 @@ class Section
 
   def section_offset
     return "0#{@section_offset + 1}" if @section_offset < 9
+
     @section_offset.to_s
   end
 end

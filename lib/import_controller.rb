@@ -1,7 +1,8 @@
+# frozen_string_literal: true
+
 require_relative 'file_system'
 
 class ImportController < FileSystem
-
   def run
     validate
     get_user_approval
@@ -23,7 +24,7 @@ class ImportController < FileSystem
     puts book.overview
     puts '---------------------'
     puts "Import #{book}? (y/n)"
-    @user_input = STDIN.gets.chomp.downcase[0] until ['y','n'].include? @user_input
+    @user_input = $stdin.gets.chomp.downcase[0] until %w[y n].include? @user_input
   end
 
   def user_approved?

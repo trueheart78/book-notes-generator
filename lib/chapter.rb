@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Chapter
   attr_reader :num, :name, :file
 
@@ -31,7 +33,7 @@ class Chapter
       '_Notes_',
       '',
       navigation,
-      '',
+      ''
     ].concat(links).join "\n"
   end
 
@@ -55,7 +57,7 @@ class Chapter
           array << navigation_item_md(readme, :readme)
           array << navigation_item_md(upcoming, :upcoming)
         end
-      end.join('&nbsp;'*7)
+      end.join('&nbsp;' * 7)
     end
   end
 
@@ -87,6 +89,7 @@ class Chapter
 
   def link_item_md(item, direction = :previous)
     return '[readme]: README.md' if direction == :readme
+
     "[#{direction}-chapter]: #{item[:file_name]}"
   end
 
@@ -96,11 +99,13 @@ class Chapter
 
   def proper_name_prefix
     return 'Appendix' if appendix?
+
     'Chapter'
   end
 
   def file_name_prefix
     return 'ap' if appendix?
+
     'ch'
   end
 
@@ -110,18 +115,19 @@ class Chapter
 
   def num_str
     return "0#{num}" if num < 10
+
     num.to_s
   end
 
   def name_as_file
-    name.gsub(/[?'!,":]/,'').
-      gsub(/\-/,' ').
-      gsub(/\s\s\s/,' ').
-      gsub(/\s\s/,' ').
-      gsub(/!=/,'is not').
-      downcase.
-      gsub(/[^0-9a-z.\-]/, '-').
-      chomp('-').
-      gsub(/--/,'-')
+    name.gsub(/[?'!,":]/, '')
+        .gsub(/-/, ' ')
+        .gsub(/\s\s\s/, ' ')
+        .gsub(/\s\s/, ' ')
+        .gsub(/!=/, 'is not')
+        .downcase
+        .gsub(/[^0-9a-z.\-]/, '-')
+        .chomp('-')
+        .gsub(/--/, '-')
   end
 end
