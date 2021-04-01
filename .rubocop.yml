@@ -2,9 +2,21 @@ require: rubocop-minitest
 
 AllCops:
   TargetRubyVersion: 2.7
-
-Style/Encoding:
+  NewCops: enable
+  RubyInterpreters:
+    - ruby
+  Exclude:
+    - vendor/**/*
+    - .bundle/**/*
+Style/Documentation:
   Enabled: false
-
+Style/RedundantFetchBlock:
+  Enabled: false
+Style/ClassAndModuleChildren:
+  Enabled: false
+Style/RaiseArgs:
+  EnforcedStyle: exploded
 Layout/LineLength:
   Max: 100
+Metrics/MethodLength:
+  Max: 12

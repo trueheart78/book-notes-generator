@@ -12,7 +12,7 @@ class YamlGeneratorTest < Minitest::Test
   def test_writes_file
     output = capture_output { subject.run }
 
-    assert File.exist? subject.yaml_file_path
+    assert_path_exists(subject.yaml_file_path)
     assert_match(/File created: #{subject.yaml_file_path}/, output)
   end
 
