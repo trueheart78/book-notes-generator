@@ -41,9 +41,9 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  minitest (~> 5.9)
+  minitest
   pry-byebug
-  rake (>= 11.1.2)
+  rake
   rubocop
   rubocop-minitest
   rubocop-rake
