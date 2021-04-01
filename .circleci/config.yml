@@ -1,5 +1,10 @@
 ---
 version: 2
+
+machine:
+  timezone:
+    America/New_York
+
 jobs:
   build:
     working_directory: ~/book-notes-generator

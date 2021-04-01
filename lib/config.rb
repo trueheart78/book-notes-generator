@@ -48,6 +48,10 @@ class Config
   attr_reader :use_config_path
 
   def generate_path(config_key)
+    load_yaml
+
+    puts valid?
+    puts config_file
     return base_path.join(yaml_data[config_key]) if yaml_data[config_key]
 
     base_path
@@ -79,6 +83,7 @@ class Config
   end
 
   def notes_directory?
+    return false if yaml_data.nil?
     return true if yaml_data['notes_directory']
   end
 end
