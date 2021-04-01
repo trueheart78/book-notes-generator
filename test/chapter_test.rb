@@ -24,7 +24,7 @@ class ChapterTest < Minitest::Test
 
   def test_to_md_without_params
     assert_match(matches[:readme], subject.to_md)
-    assert(subject.to_md.include?(mock_chapter.proper_name))
+    assert_includes(subject.to_md, mock_chapter.proper_name)
     assert_match(matches[:notes], subject.to_md)
     assert_match(matches[:readme_link], subject.to_md)
   end
@@ -34,7 +34,7 @@ class ChapterTest < Minitest::Test
     matches.each do |_, match|
       assert_match(match, @test_subject)
     end
-    assert(@test_subject.include?(mock_chapter.proper_name))
+    assert_includes(@test_subject, mock_chapter.proper_name)
   end
 
   def test_to_md_without_previous
@@ -43,7 +43,7 @@ class ChapterTest < Minitest::Test
       assert_match(match, @test_subject) unless key.to_s.start_with? 'previous'
       refute_match(match, @test_subject) if key.to_s.start_with? 'previous'
     end
-    assert(@test_subject.include?(mock_chapter.proper_name))
+    assert_includes(@test_subject, mock_chapter.proper_name)
   end
 
   def test_to_md_without_upcoming
@@ -52,7 +52,7 @@ class ChapterTest < Minitest::Test
       assert_match(match, @test_subject) unless key.to_s.start_with? 'upcoming'
       refute_match(match, @test_subject) if key.to_s.start_with? 'upcoming'
     end
-    assert(@test_subject.include?(mock_chapter.proper_name))
+    assert_includes(@test_subject, mock_chapter.proper_name)
   end
 
   def matches

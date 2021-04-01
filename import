@@ -9,7 +9,7 @@ require 'notes_generator'
 
 config = Config.new
 unless config.valid?
-  puts "Invalid config"
+  puts 'Invalid config'
   exit 1
 end
 

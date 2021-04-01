@@ -1,21 +1,21 @@
 module FileSystemTestMixin
   def test_responds_to_errors
-    assert subject.respond_to? :errors
+    assert_respond_to subject, :errors
   end
 
   def test_respond_to_file
-    assert subject.respond_to? :file
+    assert_respond_to subject, :file
   end
 
   def test_respond_to_validate
-    assert subject.respond_to? :validate
+    assert_respond_to subject, :validate
   end
 
   def test_respond_to_validate_bang
-    assert subject.respond_to? :validate!
+    assert_respond_to subject, :validate!
   end
 
   def test_respond_to_yaml_file_path
-    assert subject.respond_to? :yaml_file_path
+    assert_respond_to subject, :yaml_file_path
   end
 end

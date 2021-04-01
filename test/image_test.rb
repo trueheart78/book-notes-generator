@@ -22,7 +22,7 @@ class ImageTest < Minitest::Test
 
   def test_to_md_invalid
     bad_image = Image.new '', ''
-    assert bad_image.to_md.empty?
+    assert_empty bad_image.to_md
   end
 
   def test_valid

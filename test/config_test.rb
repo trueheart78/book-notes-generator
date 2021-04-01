@@ -46,7 +46,7 @@ class ConfigTest < Minitest::Test
 
   def test_missing_config_file
     bad_config = Config.new config_path: invalid_config_path
-    capture_output{ bad_config.base_path }
+    capture_output { bad_config.base_path }
     refute bad_config.valid?
   end
 

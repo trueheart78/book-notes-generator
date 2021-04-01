@@ -43,7 +43,7 @@ class BookTest < Minitest::Test
   end
 
   def test_to_md
-    assert_match(/\[🔙 🏡\]\(\.\.\/README.md\)/, subject.to_md)
+    assert_match(%r{\[🔙 🏡\]\(\.\./README.md\)}, subject.to_md)
     assert_match(/#{subject.title} \(#{subject.year}\)/, subject.to_md)
     assert_match(/#{subject.purchase}/, subject.to_md)
     assert_match(/#{subject.author}/, subject.to_md)
@@ -57,7 +57,7 @@ class BookTest < Minitest::Test
 
   def test_public_yaml_interface
     yaml_fields.each do |field|
-      assert subject.respond_to?(field)
+      assert_respond_to subject, field
     end
   end
 
@@ -79,6 +79,6 @@ class BookTest < Minitest::Test
   end
 
   def yaml_fields
-    [:title, :year, :purchase, :author, :homepage, :image, :image_ext, :sections]
+    %i[title year purchase author homepage image image_ext sections]
   end
 end
