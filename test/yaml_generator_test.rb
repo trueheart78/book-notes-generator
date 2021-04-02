@@ -12,7 +12,7 @@ class YamlGeneratorTest < Minitest::Test
   def test_writes_file
     output = capture_output { subject.run }
 
-    assert File.exist? subject.yaml_file_path
+    assert_path_exists(subject.yaml_file_path)
     assert_match(/File created: #{subject.yaml_file_path}/, output)
   end
 
@@ -20,7 +20,7 @@ class YamlGeneratorTest < Minitest::Test
     suppress_output { subject.run }
 
     other_yaml_generator = YamlGenerator.new(sample_filename, test_config)
-    error_string = capture_output{ other_yaml_generator.run }
+    error_string = capture_output { other_yaml_generator.run }
 
     assert_match(/Error: File exists \(#{sample_file_path}\)/, error_string)
   end
@@ -47,24 +47,24 @@ class YamlGeneratorTest < Minitest::Test
 
   def expected_content
     <<~YAML
-    ---
-    :title:
-    :year:
-    :purchase:
-    :author:
-    :homepage:
-    :image:
-    :image_ext:
+      ---
+      :title:
+      :year:
+      :purchase:
+      :author:
+      :homepage:
+      :image:
+      :image_ext:
 
-    :sections:
-      -
-        :name:
-        :chapters:
-        - chapter
-      -
-        :name: Section 1
-        :chapters:
-        - chapter
+      :sections:
+        -
+          :name:
+          :chapters:
+          - chapter
+        -
+          :name: Section 1
+          :chapters:
+          - chapter
     YAML
   end
 end

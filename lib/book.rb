@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'yaml'
 require 'pathname'
 require 'chapter'
@@ -30,6 +32,7 @@ class Book
     @image ||= Image.new yaml_data[:image], yaml_data[:image_ext]
   end
 
+  # rubocop:disable Metrics/MethodLength
   def overview
     [
       "- Directory: #{relative_directory}",
@@ -42,10 +45,12 @@ class Book
       "- Homepage: #{homepage}",
       "- Image? #{image.valid?} [#{image.ext}]",
       "   #{image.url}",
-      "- Chapters: #{chapter_length}",
+      "- Chapters: #{chapter_length}"
     ].concat(section_overview).join "\n"
   end
+  # rubocop:enable Metrics/MethodLength
 
+  # rubocop:disable Metrics/MethodLength
   def to_md
     @md ||= [
       "[🔙 🏡](#{project_readme_path})",
@@ -62,6 +67,7 @@ class Book
       ''
     ].concat(section_md).concat(image_md).join "\n"
   end
+  # rubocop:enable Metrics/MethodLength
 
   def to_s
     "'#{title} (#{year})' by #{author} :: #{chapter_length} chapters"
@@ -92,7 +98,8 @@ class Book
     chapter_offset = 0
     section_offset = 0
     yaml_data[:sections].each do |s|
-      @sections << Section.new(s[:name], s[:chapters], chapter_offset: chapter_offset, section_offset: section_offset)
+      @sections << Section.new(s[:name], s[:chapters], chapter_offset: chapter_offset,
+                                                       section_offset: section_offset)
       chapter_offset += s[:chapters].size
       section_offset += 1
     end
@@ -120,7 +127,8 @@ class Book
   end
 
   def image_md
-    return [ '', image.to_md ] if image.valid?
+    return ['', image.to_md] if image.valid?
+
     []
   end
 
@@ -130,25 +138,26 @@ class Book
 
   def load_yaml_file
     YAML.load_file(yaml_file).tap do |yaml|
-      create_sections(yaml) unless yaml.has_key? :sections
+      create_sections(yaml) unless yaml.key? :sections
     end
   end
 
   def create_sections(yaml)
-    yaml[:sections] = [{name: nil, chapters: yaml[:chapters]}]
+    yaml[:sections] = [{ name: nil, chapters: yaml[:chapters] }]
     yaml.delete :chapters
-    if yaml.has_key? :appendices
-      yaml[:sections] << {name: 'Appendices', chapters: yaml[:appendices]}
+    if yaml.key? :appendices
+      yaml[:sections] << { name: 'Appendices', chapters: yaml[:appendices] }
       yaml.delete :appendices
     end
     yaml
   end
 
   def attr_list
-    [:title, :year, :purchase, :author, :homepage, :image, :image_ext, :sections]
+    %i[title year purchase author homepage image image_ext sections]
   end
 
   def adjective
-    %w{fantastic grand marvelous terrific tremendous wondrous howling rattling astonishing awe-inspiring awesome impressive fascinating incredible marvelous unbelievable}.sample
+    %w[fantastic grand marvelous terrific tremendous wondrous howling rattling astonishing
+       awe-inspiring awesome impressive fascinating incredible marvelous unbelievable].sample
   end
 end

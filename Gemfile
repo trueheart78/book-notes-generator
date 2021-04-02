@@ -1,5 +1,11 @@
-source 'https://rubygems.org'
+# frozen_string_literal: true
 
-gem 'rake', '>= 11.1.2'
-gem 'minitest', '~> 5.9'
+source 'https://rubygems.org'
+ruby '~> 2.7.2' # keep in sync with .ruby-version
+
+gem 'minitest'
 gem 'pry-byebug'
+gem 'rake'
+gem 'rubocop'
+gem 'rubocop-minitest'
+gem 'rubocop-rake'

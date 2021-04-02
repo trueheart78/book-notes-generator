@@ -9,7 +9,8 @@ class SectionTest < Minitest::Test
   end
 
   def offset_subject
-    @offset_subject ||= Section.new valid_name, chapter_list_offset, chapter_offset: chapter_offset, section_offset: section_offset
+    @offset_subject ||= Section.new valid_name, chapter_list_offset,
+                                    chapter_offset: chapter_offset, section_offset: section_offset
   end
 
   def test_name
@@ -100,6 +101,6 @@ class SectionTest < Minitest::Test
   end
 
   def chapter_list_offset
-    1.upto(chapter_offset).each.map { |n| "#{(n+chapter_offset)} Great Words" }
+    1.upto(chapter_offset).each.map { |n| "#{n + chapter_offset} Great Words" }
   end
 end

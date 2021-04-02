@@ -13,28 +13,28 @@ require 'options'
 module TestHelper
   def capture_output
     old_stdout = $stdout
-    $stdout = StringIO.new '','w'
+    $stdout = StringIO.new '', 'w'
     yield
     $stdout.string
   ensure
     $stdout = old_stdout
   end
-  alias :suppress_output :capture_output
+  alias suppress_output capture_output
 
   def book_path
     fixture_book_path('book-valid')
   end
 
   def fixture_path
-    File.join 'test','fixtures'
+    File.join Dir.pwd, 'test', 'fixtures'
   end
 
   def fixture_book_path(file)
-    File.join fixture_path, "books", "#{file}.yml"
+    File.join fixture_path, 'books', "#{file}.yml"
   end
 
   def fixture_config_path(config)
-    File.join fixture_path, "config", "#{config}"
+    File.join fixture_path, 'config', "#{config}.yml"
   end
 
   def test_config_path
@@ -56,6 +56,7 @@ module TestHelper
 
   def test_options
     return @test_options if defined? @test_options
+
     ARGV << 'sample'
     @test_options = Options.new
     @test_options.parse!

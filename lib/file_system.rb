@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'config'
 
 class FileSystem
@@ -26,7 +28,7 @@ class FileSystem
   private
 
   def valid?
-    errors.size == 0
+    errors.size.zero?
   end
 
   def display_errors
@@ -39,7 +41,5 @@ class FileSystem
     raise 'Method not implemented'
   end
 
-  def config
-    @config
-  end
+  attr_reader :config
 end

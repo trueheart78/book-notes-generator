@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'optparse'
 
 class Options
@@ -14,23 +16,24 @@ class Options
     OptionParser.new do |opts|
       opts.banner = "Usage: generate [options] filename\n"
 
-      opts.on('-h','--help','Displays help') do
+      opts.on('-h', '--help', 'Displays help') do
         self.continue = false
         puts opts
       end
 
-      self.continue = false if ARGV.count == 0 || !self.file?
+      self.continue = false if ARGV.count.zero? || !file?
 
-      puts opts unless self.continue?
+      puts opts unless continue?
     end.parse!
   end
 
   def filename=(name)
     return unless name
+
     if File.extname(name) == '.yml'
       @filename = name
     else
-      @filename = name.delete('!*&#?:;').tr('_ ','-')
+      @filename = name.delete('!*&#?:;').tr('_ ', '-')
       @filename << '.yml'
     end
   end
@@ -40,6 +43,6 @@ class Options
   end
 
   def continue?
-    self.continue
+    continue
   end
 end

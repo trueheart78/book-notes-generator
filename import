@@ -1,4 +1,6 @@
 #!/usr/bin/env ruby
+# frozen_string_literal: true
+
 $LOAD_PATH.unshift('lib')
 ENV['NODE_ENV'] = 'development' unless ENV['NODE_ENV']
 
@@ -9,7 +11,7 @@ require 'notes_generator'
 
 config = Config.new
 unless config.valid?
-  puts "Invalid config"
+  puts 'Invalid config'
   exit 1
 end
 

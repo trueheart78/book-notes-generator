@@ -1,0 +1,29 @@
+inherit_from: .rubocop_todo.yml
+
+require:
+  - rubocop-minitest
+  - rubocop-rake
+
+AllCops:
+  TargetRubyVersion: 2.7
+  NewCops: enable
+  RubyInterpreters:
+    - ruby
+  Exclude:
+    - vendor/**/*
+    - .bundle/**/*
+Style/FrozenStringLiteralComment:
+  Exclude:
+    - test/**/*
+Style/Documentation:
+  Enabled: false
+Style/RedundantFetchBlock:
+  Enabled: false
+Style/ClassAndModuleChildren:
+  Enabled: false
+Style/RaiseArgs:
+  EnforcedStyle: exploded
+Layout/LineLength:
+  Max: 100
+Metrics/MethodLength:
+  Max: 12
