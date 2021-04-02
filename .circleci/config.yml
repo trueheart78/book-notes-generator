@@ -29,7 +29,11 @@ jobs:
         key: book-notes-generator-{{ checksum "Gemfile.lock" }}
 
       # Bundle install dependencies
-      - run: bundle install --path vendor/bundle
+      - run:
+          name: Bundle Install
+          command: |
+            bundle config set --local path 'vendor/bundle'
+            bundle install
 
       # Cache Dependencies
       - type: cache-save
