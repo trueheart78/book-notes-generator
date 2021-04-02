@@ -7,10 +7,11 @@ class Config
   def initialize(config_path: nil)
     @use_config_path = config_path if config_path
     @yaml_data = nil
+
+    load_yaml
   end
 
   def base_path
-    load_yaml
     Pathname.new yaml_data['book_notes_path'] if valid?
   end
 
@@ -31,12 +32,10 @@ class Config
   end
 
   def valid?
-    load_yaml
     @valid
   end
 
   def compose_notes_dir(book_directory)
-    load_yaml
     dir = []
     dir << yaml_data['notes_directory'] if notes_directory?
     dir << book_directory
@@ -45,13 +44,9 @@ class Config
 
   private
 
-  attr_reader :use_config_path
+  attr_reader :use_config_path, :yaml_data
 
   def generate_path(config_key)
-    load_yaml
-
-    puts valid?
-    puts config_file
     return base_path.join(yaml_data[config_key]) if yaml_data[config_key]
 
     base_path
@@ -70,16 +65,15 @@ class Config
     ENV['NODE_ENV'] == 'development' && File.exist?('config.local')
   end
 
-  def yaml_data
-    load_yaml unless @yaml_data
-    @yaml_data
-  end
-
   def load_yaml
-    @yaml_data ||= YAML.load_file config_file
-    @valid = true
-  rescue Errno::ENOENT
-    @valid = false
+    return if @yaml_data
+
+    if File.exist? config_file
+      @yaml_data = YAML.load_file config_file
+      @valid = true
+    else
+      @valid = false
+    end
   end
 
   def notes_directory?
