@@ -1,4 +1,4 @@
-# Book Notes Generator :boom:
+# Book Notes Generator :memo: [![CircleCI](https://circleci.com/gh/trueheart78/book-notes-generator.svg?style=shield)](https://circleci.com/gh/trueheart78/book-notes-generator)
 
 Companion to [Book Notes](https://github.com/trueheart78/book-notes)
 
@@ -27,13 +27,13 @@ Tests can be run with `bundle exec rake test`. Tests are written using Minitest.
 
 ### Configuration
 
-Make a local copy of the `config.default` file:
+Make a local copy of the `config.default.yml` file:
 
 ```sh
-cp config.default config.local
+cp config.default.yml config.local.yml
 ```
 
-Edit `config.local` with a full path for `book_notes_path`, the proper
+Edit `config.local.yml` with a full path for `book_notes_path`, the proper
 `yaml_directory`, and the `notes_directory`. Leaving either of the directories
 blank is allowed, and for the `notes_directory`, likely desired.
 
