@@ -26,7 +26,7 @@ module TestHelper
   end
 
   def fixture_path
-    File.join 'test', 'fixtures'
+    File.join Dir.pwd, 'test', 'fixtures'
   end
 
   def fixture_book_path(file)
@@ -34,7 +34,7 @@ module TestHelper
   end
 
   def fixture_config_path(config)
-    File.join fixture_path, 'config', config.to_s
+    File.join fixture_path, 'config', "#{config}.yml"
   end
 
   def test_config_path

@@ -75,6 +75,6 @@ class ConfigTest < Minitest::Test
   end
 
   def empty_notes_config_file
-    Pathname.new 'config-sans-notes-dir'
+    Pathname.new 'config-no-notes-dir'
   end
 end

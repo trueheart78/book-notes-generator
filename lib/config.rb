@@ -5,7 +5,7 @@ require 'pathname'
 
 class Config
   def initialize(config_path: nil)
-    @use_config_path = config_path if config_path
+    @config_path = config_path
     @yaml_data = nil
 
     load_yaml
@@ -44,7 +44,13 @@ class Config
 
   private
 
-  attr_reader :use_config_path, :yaml_data
+  attr_reader :config_path, :yaml_data
+
+  def use_config_path?
+    return true if config_path
+
+    false
+  end
 
   def generate_path(config_key)
     return base_path.join(yaml_data[config_key]) if yaml_data[config_key]
@@ -53,16 +59,24 @@ class Config
   end
 
   def config_file
-    return use_config_path if use_config_path
+    return config_path if use_config_path?
     return ENV['CONFIG_PATH'] if ENV['CONFIG_PATH']
-    return 'config.default' unless ENV['NODE_ENV']
-    return 'config.local' if local_supported?
+    return default_config_file unless ENV['NODE_ENV']
+    return local_config_file if local_supported?
 
     "config.#{ENV['NODE_ENV'].downcase}"
   end
 
+  def default_config_file
+    'config.default.yml'
+  end
+
+  def local_config_file
+    'config.local.yml'
+  end
+
   def local_supported?
-    ENV['NODE_ENV'] == 'development' && File.exist?('config.local')
+    ENV['NODE_ENV'] == 'development' && File.exist?(local_config_file)
   end
 
   def load_yaml
