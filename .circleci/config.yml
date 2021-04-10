@@ -9,7 +9,7 @@ jobs:
   build:
     working_directory: ~/book-notes-generator
     docker:
-      - image: circleci/ruby:2.7.2
+      - image: circleci/ruby:2.7.3
         environment:
           RAILS_ENV: test
     steps:
